@@ -1055,7 +1055,7 @@ function seed(){
 }
 function load(){ try{const s=localStorage.getItem(KEY); if(s) st=JSON.parse(s);}catch(e){} if(!st||!st.items) seed(); }
 function save(){ try{localStorage.setItem(KEY,JSON.stringify(st));}catch(e){} }
-const VERSION_APP = '1.1';
+const VERSION_APP = '1.2';
 function exportarDatos(){
   const payload = {app:'curso-chino', version:VERSION_APP, fecha:new Date().toISOString(), estado:st, tema:(()=>{try{return localStorage.getItem('hsk_tema')}catch(e){return null}})(), voz:vozElegida};
   return JSON.stringify(payload);
@@ -1213,17 +1213,23 @@ function renderProgreso(){
       <input type="file" id="archivoCopia" accept=".json,application/json" class="hidden" onchange="leerCopia(this)">
       <span class="small" id="aviso" style="transition:opacity .4s;opacity:0;min-height:16px"></span>
     </div>
-    <div class="pc"><span class="lbl">Datos</span><button class="link" onclick="reset()">Borrar todo el progreso</button></div>`;
+    <div class="pc"><span class="lbl">Datos</span><button class="link" onclick="reset()">Borrar todo el progreso</button><span class="small">Versión ${VERSION_APP}</span></div>`;
 }
 // Feedback táctil (iOS no aplica :active sin esto)
 (function(){
   let activo=null;
   const soltar=()=>{ if(activo){ const b=activo; activo=null; setTimeout(()=>b.classList.remove('pressed'),90); } };
-  document.addEventListener('pointerdown',e=>{ const b=e.target.closest('button'); if(!b||b.disabled) return; activo=b; b.classList.add('pressed'); },{passive:true});
-  document.addEventListener('pointerup',soltar,{passive:true});
-  document.addEventListener('pointercancel',soltar,{passive:true});
-  document.addEventListener('pointerleave',soltar,{passive:true});
-  document.addEventListener('touchstart',()=>{},{passive:true});
+  const pulsar=e=>{ const t=e.target instanceof Element?e.target:null; const b=t&&t.closest('button'); if(!b||b.disabled) return; activo=b; b.classList.add('pressed'); };
+  const tieneTouch='ontouchstart' in window;
+  if(tieneTouch){
+    document.addEventListener('touchstart',pulsar,{passive:true});
+    document.addEventListener('touchend',soltar,{passive:true});
+    document.addEventListener('touchcancel',soltar,{passive:true});
+  } else {
+    document.addEventListener('pointerdown',pulsar,{passive:true});
+    document.addEventListener('pointerup',soltar,{passive:true});
+    document.addEventListener('pointercancel',soltar,{passive:true});
+  }
 })();
 load(); siguiente(); irA('estudio');
 if('serviceWorker' in navigator){ window.addEventListener('load',()=>{ navigator.serviceWorker.register('sw.js').catch(()=>{}); }); }
