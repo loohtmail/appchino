@@ -19,13 +19,17 @@
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;height:100%;background:var(--bg);color:var(--text);font-family:Inter,-apple-system,system-ui,sans-serif;overscroll-behavior:none}
 button,select,input,a{font:inherit}
-button{outline:none;transition:transform .12s ease,opacity .12s ease,background-color .12s ease}
+button{outline:none;transition:transform .14s cubic-bezier(.2,.8,.2,1),opacity .14s ease,filter .14s ease,background-color .14s ease;touch-action:manipulation}
 button:focus{outline:none}
-button:active{transform:scale(.96);opacity:.8}
-.ic:active{transform:scale(.9)}
-.spk:active{transform:scale(.92);box-shadow:0 6px 24px rgba(255,36,66,.5)}
-.tab:active{transform:scale(.92);opacity:1}
-.chip:active{transform:scale(.94)}
+button.pressed{transform:scale(.94);opacity:.85;filter:brightness(1.15)}
+.btn.pressed{transform:scale(.96)}
+.ic.pressed{transform:scale(.86)}
+.spk.pressed{transform:scale(.9);box-shadow:0 6px 24px rgba(255,36,66,.55)}
+.tab.pressed{transform:scale(.9);opacity:1}
+.tab.pressed svg{transform:translateY(-2px)}
+.tab svg{transition:transform .14s ease}
+.chip.pressed{transform:scale(.92)}
+.lst.pressed{transform:scale(.94)}
 .pill{transition:none}
 @keyframes aparece{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 .card,.q{animation:aparece .22s ease}
@@ -1051,7 +1055,7 @@ function seed(){
 }
 function load(){ try{const s=localStorage.getItem(KEY); if(s) st=JSON.parse(s);}catch(e){} if(!st||!st.items) seed(); }
 function save(){ try{localStorage.setItem(KEY,JSON.stringify(st));}catch(e){} }
-const VERSION_APP = '1.0';
+const VERSION_APP = '1.1';
 function exportarDatos(){
   const payload = {app:'curso-chino', version:VERSION_APP, fecha:new Date().toISOString(), estado:st, tema:(()=>{try{return localStorage.getItem('hsk_tema')}catch(e){return null}})(), voz:vozElegida};
   return JSON.stringify(payload);
@@ -1211,6 +1215,16 @@ function renderProgreso(){
     </div>
     <div class="pc"><span class="lbl">Datos</span><button class="link" onclick="reset()">Borrar todo el progreso</button></div>`;
 }
+// Feedback táctil (iOS no aplica :active sin esto)
+(function(){
+  let activo=null;
+  const soltar=()=>{ if(activo){ const b=activo; activo=null; setTimeout(()=>b.classList.remove('pressed'),90); } };
+  document.addEventListener('pointerdown',e=>{ const b=e.target.closest('button'); if(!b||b.disabled) return; activo=b; b.classList.add('pressed'); },{passive:true});
+  document.addEventListener('pointerup',soltar,{passive:true});
+  document.addEventListener('pointercancel',soltar,{passive:true});
+  document.addEventListener('pointerleave',soltar,{passive:true});
+  document.addEventListener('touchstart',()=>{},{passive:true});
+})();
 load(); siguiente(); irA('estudio');
 if('serviceWorker' in navigator){ window.addEventListener('load',()=>{ navigator.serviceWorker.register('sw.js').catch(()=>{}); }); }
 </script>
