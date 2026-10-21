@@ -1,0 +1,1218 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Chino · Tarjetas</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Chino">
+<meta name="theme-color" content="#000000">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;700&display=swap">
+<style>
+:root{--bg:#F7F7F8;--card:#FFFFFF;--card2:#F0F0F2;--text:#111111;--muted:#6E6E73;--line:#E5E5EA;--dim:#B0B0B5;--nbg:#111111;--ntext:#FFFFFF;--green:#28B757;--accent:#FF2442;--amber:#F5A524;--shadow:0 2px 12px rgba(0,0,0,.05);color-scheme:light}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#000000;--card:#141414;--card2:#262626;--text:#F5F5F5;--muted:#8E8E93;--line:#1C1C1E;--dim:#5A5A5E;--nbg:#F5F5F5;--ntext:#000000;--green:#30C464;--shadow:none;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#000000;--card:#141414;--card2:#262626;--text:#F5F5F5;--muted:#8E8E93;--line:#1C1C1E;--dim:#5A5A5E;--nbg:#F5F5F5;--ntext:#000000;--green:#30C464;--shadow:none;color-scheme:dark}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--text);font-family:Inter,-apple-system,system-ui,sans-serif;overscroll-behavior:none}
+button,select,input,a{font:inherit}
+button{outline:none;transition:transform .12s ease,opacity .12s ease,background-color .12s ease}
+button:focus{outline:none}
+button:active{transform:scale(.96);opacity:.8}
+.ic:active{transform:scale(.9)}
+.spk:active{transform:scale(.92);box-shadow:0 6px 24px rgba(255,36,66,.5)}
+.tab:active{transform:scale(.92);opacity:1}
+.chip:active{transform:scale(.94)}
+.pill{transition:none}
+@keyframes aparece{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.card,.q{animation:aparece .22s ease}
+.ring.on{animation:latido .9s ease}
+@keyframes latido{0%{box-shadow:0 0 0 20px rgba(255,36,66,.08),0 0 0 44px rgba(255,36,66,.04)}40%{box-shadow:0 0 0 30px rgba(255,36,66,.16),0 0 0 60px rgba(255,36,66,.06)}100%{box-shadow:0 0 0 20px rgba(255,36,66,.08),0 0 0 44px rgba(255,36,66,.04)}}
+.zhf{font-family:'Noto Sans SC','PingFang SC',system-ui,sans-serif}
+.app{height:100%;display:flex;flex-direction:column;max-width:520px;margin:0 auto}
+.hdr{flex:none;padding:max(calc(env(safe-area-inset-top,0px) + 14px),64px) 20px 12px;display:grid;grid-template-columns:40px 1fr 40px;align-items:center;border-bottom:1px solid var(--line)}
+.hdr h1{margin:0;font-size:22px;font-weight:800;letter-spacing:-.01em;text-align:center}
+.hdr .ic{grid-column:3}
+.ic{width:40px;height:40px;border-radius:20px;border:0;background:var(--card2);color:var(--text);display:flex;align-items:center;justify-content:center;cursor:pointer}
+.main{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:6px 20px 12px;display:flex;flex-direction:column}
+.hidden{display:none!important}
+/* estudiar */
+#estudio{flex:1;display:flex;flex-direction:column;justify-content:center;gap:28px;padding:10px 0 20px}
+.q{display:flex;flex-direction:column;justify-content:center;align-items:center;gap:32px;text-align:center}
+.acc{display:flex;gap:12px;width:100%;max-width:400px;margin:0 auto}
+.pill{font-size:12px;font-weight:700;padding:6px 12px;border-radius:999px;background:var(--accent);color:#fff;letter-spacing:.04em}
+.pill.g{background:var(--card2);color:var(--muted);font-weight:600;font-size:13px;padding:7px 14px}
+.pill.n{background:var(--card2);color:var(--accent)}
+.zh{font-size:52px;line-height:1.3;font-weight:500}
+.es{font-size:28px;line-height:1.35;font-weight:600;padding:0 8px}
+.hint{font-size:15px;color:var(--muted)}
+.ring{width:236px;height:236px;border-radius:118px;background:var(--card);display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 20px rgba(255,36,66,.08),0 0 0 44px rgba(255,36,66,.04)}
+.spk{width:136px;height:136px;border-radius:68px;border:0;background:var(--accent);display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 14px 44px rgba(255,36,66,.4)}
+.card{background:var(--card);border-radius:20px;padding:26px 22px 22px;display:flex;flex-direction:column;align-items:center;gap:20px;text-align:center;box-shadow:var(--shadow)}
+.ruby{display:flex;flex-wrap:wrap;justify-content:center;gap:12px 10px}
+.ruby .c{display:flex;flex-direction:column;align-items:center;gap:6px}
+.ruby .c .h{font-size:46px;line-height:1.05;font-weight:500}
+.ruby.big .c .h{font-size:74px}
+.ruby .c .p{font-size:14px;font-weight:600;color:var(--accent);min-height:16px}
+.ruby.big .c .p{font-size:16px}
+.ruby .pt .h{font-size:34px;color:var(--muted)}
+.ruby.sm{justify-content:flex-start;gap:8px 6px}
+.ruby.sm .c{gap:3px}
+.ruby.sm .c .h{font-size:24px;font-weight:500}
+.ruby.sm .c .p{font-size:12px;min-height:14px}
+.ruby.sm .pt .h{font-size:20px}
+.trad{font-size:23px;font-weight:700;letter-spacing:-.01em;line-height:1.3}
+.sep{width:100%;height:1px;background:var(--line)}
+.ej{display:flex;flex-direction:column;gap:6px;width:100%;text-align:left}
+.ej .lbl{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.ej .z{font-size:21px;line-height:1.5}
+.ej .e{font-size:14px;color:var(--muted)}
+.lst{display:flex;align-items:center;gap:8px;height:44px;padding:0 20px;border-radius:22px;border:0;background:var(--card2);color:var(--text);font-size:15px;font-weight:600;cursor:pointer}
+.dots{display:flex;gap:6px}
+.dots span{width:8px;height:8px;border-radius:4px;background:var(--card2)}
+.dots span.on{background:var(--green)}
+.acts{display:none}
+.btn{flex:1;height:56px;border-radius:28px;border:0;font-size:17px;font-weight:700;cursor:pointer;color:#fff;background:var(--accent)}
+.btn.neu{background:var(--nbg);color:var(--ntext)}
+.btn.ok{background:var(--green)}
+/* tab bar */
+.tabs{flex:none;display:flex;justify-content:space-around;align-items:center;padding:10px 12px calc(env(safe-area-inset-bottom,0px) + 10px);border-top:1px solid var(--line);background:var(--bg)}
+.tab{display:flex;flex-direction:column;align-items:center;gap:4px;padding:4px 12px;min-width:64px;background:none;border:0;cursor:pointer;color:var(--muted);font-size:11px;font-weight:600}
+.tab.on{color:var(--text);font-weight:700}
+.tab svg{stroke:currentColor}
+/* vocabulario */
+.chips{display:flex;gap:8px;overflow-x:auto;padding:4px 0 8px;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;font-size:13px;font-weight:600;padding:8px 14px;border-radius:999px;border:0;background:var(--card2);color:var(--text);cursor:pointer}
+.chip.on{background:var(--text);color:var(--bg);font-weight:700}
+.chip.lock{color:var(--dim)}
+.search{display:flex;align-items:center;gap:10px;height:46px;padding:0 16px;border-radius:23px;background:var(--card2);margin-top:6px}
+.search input{flex:1;border:0;background:transparent;color:var(--text);font-size:15px;outline:none;min-width:0}
+.meta{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);padding:14px 0 8px}
+.meta b{color:var(--text)}
+.list{background:var(--card);border-radius:20px;padding:2px 18px;box-shadow:var(--shadow)}
+.it{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 0;border-bottom:1px solid var(--line)}
+.it:last-child{border:0}
+.it .z{font-size:23px;font-weight:500}.it .p{font-size:13px;font-weight:600;color:var(--accent);margin-top:2px}.it .e{font-size:14px;color:var(--muted);margin-top:2px}
+.dot{flex:none;width:10px;height:10px;border-radius:5px}
+.dot.d{background:var(--green)}.dot.a{background:var(--amber)}.dot.n{border:1.5px solid var(--dim)}
+/* progreso */
+.pc{background:var(--card);border-radius:20px;padding:22px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:14px;margin-top:14px}
+.pc .lbl{font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.bigN{display:flex;align-items:baseline;gap:8px}
+.bigN b{font-size:56px;font-weight:800;letter-spacing:-.04em;line-height:1}
+.bigN span{font-size:16px;font-weight:600;color:var(--muted)}
+.bar{height:10px;border-radius:5px;background:var(--card2);overflow:hidden;flex:1}
+.bar div{height:100%;border-radius:5px;background:var(--accent)}
+.lvl{display:flex;align-items:center;gap:12px;font-size:13px;font-weight:700}
+.lvl .n{width:48px;color:var(--muted)}.lvl .v{width:40px;text-align:right}
+.lvl.off .n,.lvl.off .v{color:var(--dim)}
+.rowc{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.rowc .t{font-size:16px;font-weight:700}.rowc .s{font-size:14px;color:var(--muted);margin-top:4px}
+.rowc .k{font-size:34px;font-weight:500;color:var(--accent)}
+select.voz{width:100%;font-size:15px;padding:12px;border-radius:14px;border:1px solid var(--line);background:var(--card2);color:var(--text)}
+.link{background:none;border:0;color:var(--accent);font-size:15px;font-weight:600;padding:6px 0 0;cursor:pointer;text-align:left}
+.small{font-size:13px;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="hdr">
+    <h1 id="titulo">Estudiar</h1>
+    <button class="ic" id="btnTema" onclick="toggleTema()" aria-label="Cambiar tema"></button>
+  </div>
+  <div class="main" id="main">
+    <div id="estudio"></div>
+    <div id="vocab" class="hidden"></div>
+    <div id="progreso" class="hidden"></div>
+  </div>
+  <div class="acts" id="acts"></div>
+  <div class="tabs">
+    <button class="tab on" id="tab-estudio" onclick="irA('estudio')"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="4"/><path d="M8 12h8M12 8v8"/></svg>Estudiar</button>
+    <button class="tab" id="tab-vocab" onclick="irA('vocab')"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h10"/></svg>Vocabulario</button>
+    <button class="tab" id="tab-progreso" onclick="irA('progreso')"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M5 20V10M12 20V4M19 20v-7"/></svg>Progreso</button>
+  </div>
+</div>
+<script>
+// Datos: nivel|tipo|chino|pinyin por sílaba|español|tema
+const DATA = `1|w|我|wǒ|yo
+1|w|我们|wǒ men|nosotros
+1|w|你|nǐ|tú
+1|w|他|tā|él
+1|w|她|tā|ella
+1|w|这|zhè|esto, este
+1|w|那|nà|eso, aquel
+1|w|哪|nǎ|cuál
+1|w|哪儿|nǎ r|dónde
+1|w|谁|shéi|quién
+1|w|什么|shén me|qué
+1|w|多少|duō shao|cuánto
+1|w|几|jǐ|cuántos (pocos), algunos
+1|w|怎么|zěn me|cómo
+1|w|怎么样|zěn me yàng|qué tal, cómo
+1|w|一|yī|uno
+1|w|二|èr|dos
+1|w|三|sān|tres
+1|w|四|sì|cuatro
+1|w|五|wǔ|cinco
+1|w|六|liù|seis
+1|w|七|qī|siete
+1|w|八|bā|ocho
+1|w|九|jiǔ|nueve
+1|w|十|shí|diez
+1|w|个|gè|(clasificador general)
+1|w|岁|suì|años (de edad)
+1|w|本|běn|(clasificador de libros)
+1|w|些|xiē|algunos, unos
+1|w|块|kuài|yuan (coloquial); trozo
+1|w|不|bù|no
+1|w|没|méi|no (haber / pasado)
+1|w|很|hěn|muy
+1|w|太|tài|demasiado
+1|w|都|dōu|todos
+1|w|一点儿|yì diǎn r|un poco
+1|w|和|hé|y, con
+1|w|在|zài|en, estar en
+1|w|的|de|(partícula posesiva)
+1|w|了|le|(partícula de cambio / acción completada)
+1|w|吗|ma|(partícula de pregunta sí/no)
+1|w|呢|ne|(partícula: ¿y...?)
+1|w|喂|wèi|¿diga? (al teléfono)
+1|w|家|jiā|casa, familia
+1|w|学校|xué xiào|escuela
+1|w|饭店|fàn diàn|restaurante, hotel
+1|w|商店|shāng diàn|tienda
+1|w|医院|yī yuàn|hospital
+1|w|中国|Zhōng guó|China
+1|w|北京|Běi jīng|Pekín
+1|w|上|shàng|arriba, encima
+1|w|下|xià|abajo, debajo
+1|w|前面|qián miàn|delante
+1|w|后面|hòu miàn|detrás
+1|w|里|lǐ|dentro
+1|w|今天|jīn tiān|hoy
+1|w|明天|míng tiān|mañana
+1|w|昨天|zuó tiān|ayer
+1|w|上午|shàng wǔ|por la mañana
+1|w|中午|zhōng wǔ|mediodía
+1|w|下午|xià wǔ|por la tarde
+1|w|年|nián|año
+1|w|月|yuè|mes
+1|w|号|hào|día del mes; número
+1|w|星期|xīng qī|semana
+1|w|点|diǎn|hora (en punto)
+1|w|分钟|fēn zhōng|minuto
+1|w|现在|xiàn zài|ahora
+1|w|时候|shí hou|momento, cuando
+1|w|爸爸|bà ba|papá
+1|w|妈妈|mā ma|mamá
+1|w|儿子|ér zi|hijo
+1|w|女儿|nǚ ér|hija
+1|w|老师|lǎo shī|profesor
+1|w|学生|xué sheng|estudiante
+1|w|同学|tóng xué|compañero de clase
+1|w|朋友|péng you|amigo
+1|w|医生|yī shēng|médico
+1|w|先生|xiān sheng|señor
+1|w|小姐|xiǎo jiě|señorita
+1|w|衣服|yī fu|ropa
+1|w|水|shuǐ|agua
+1|w|菜|cài|plato, verdura
+1|w|米饭|mǐ fàn|arroz cocido
+1|w|水果|shuǐ guǒ|fruta
+1|w|苹果|píng guǒ|manzana
+1|w|茶|chá|té
+1|w|杯子|bēi zi|vaso, taza
+1|w|钱|qián|dinero
+1|w|飞机|fēi jī|avión
+1|w|出租车|chū zū chē|taxi
+1|w|电视|diàn shì|televisión
+1|w|电脑|diàn nǎo|ordenador
+1|w|电影|diàn yǐng|película
+1|w|天气|tiān qì|tiempo (clima)
+1|w|猫|māo|gato
+1|w|狗|gǒu|perro
+1|w|东西|dōng xi|cosa
+1|w|人|rén|persona
+1|w|名字|míng zi|nombre
+1|w|书|shū|libro
+1|w|汉语|Hàn yǔ|chino (idioma)
+1|w|字|zì|carácter, letra
+1|w|桌子|zhuō zi|mesa
+1|w|椅子|yǐ zi|silla
+1|w|谢谢|xiè xie|gracias
+1|w|不客气|bú kè qi|de nada
+1|w|再见|zài jiàn|adiós
+1|w|请|qǐng|por favor; invitar
+1|w|对不起|duì bu qǐ|lo siento
+1|w|没关系|méi guān xi|no pasa nada
+1|w|是|shì|ser
+1|w|有|yǒu|tener, haber
+1|w|看|kàn|mirar, ver
+1|w|听|tīng|escuchar
+1|w|说|shuō|hablar, decir
+1|w|读|dú|leer
+1|w|写|xiě|escribir
+1|w|看见|kàn jiàn|ver (percibir)
+1|w|叫|jiào|llamarse
+1|w|来|lái|venir
+1|w|回|huí|volver
+1|w|去|qù|ir
+1|w|吃|chī|comer
+1|w|喝|hē|beber
+1|w|睡觉|shuì jiào|dormir
+1|w|打电话|dǎ diàn huà|llamar por teléfono
+1|w|做|zuò|hacer
+1|w|买|mǎi|comprar
+1|w|开|kāi|abrir; conducir
+1|w|坐|zuò|sentarse; tomar (transporte)
+1|w|住|zhù|vivir (residir)
+1|w|学习|xué xí|estudiar
+1|w|工作|gōng zuò|trabajo, trabajar
+1|w|下雨|xià yǔ|llover
+1|w|爱|ài|amar
+1|w|喜欢|xǐ huan|gustar
+1|w|想|xiǎng|querer; pensar; echar de menos
+1|w|认识|rèn shi|conocer
+1|w|会|huì|saber (hacer algo)
+1|w|能|néng|poder
+1|w|好|hǎo|bueno, bien
+1|w|大|dà|grande
+1|w|小|xiǎo|pequeño
+1|w|多|duō|mucho
+1|w|少|shǎo|poco
+1|w|冷|lěng|frío
+1|w|热|rè|calor, caliente
+1|w|高兴|gāo xìng|contento
+1|w|漂亮|piào liang|bonito, guapo
+1|p|你好！|nǐ hǎo|¡Hola!|Conversación
+1|p|你好吗？|nǐ hǎo ma|¿Cómo estás?|Conversación
+1|p|我很好。|wǒ hěn hǎo|Estoy bien.|Conversación
+1|p|谢谢你。|xiè xie nǐ|Gracias.|Conversación
+1|p|不客气。|bú kè qi|De nada.|Conversación
+1|p|对不起。|duì bu qǐ|Lo siento.|Conversación
+1|p|没关系。|méi guān xi|No pasa nada.|Conversación
+1|p|再见！|zài jiàn|¡Adiós!|Conversación
+1|p|这是什么？|zhè shì shén me|¿Qué es esto?|Conversación
+1|p|我不会。|wǒ bú huì|No sé (hacerlo).|Conversación
+1|p|多少钱？|duō shao qián|¿Cuánto cuesta?|Comida
+1|p|他是谁？|tā shì shéi|¿Quién es él?|Conversación
+1|p|几点了？|jǐ diǎn le|¿Qué hora es?|Conversación
+1|p|我是学生。|wǒ shì xué sheng|Soy estudiante.|Conversación
+1|p|我想喝水。|wǒ xiǎng hē shuǐ|Quiero beber agua.|Comida
+1|p|太好了！|tài hǎo le|¡Genial!|Conversación
+1|p|我喜欢猫。|wǒ xǐ huan māo|Me gustan los gatos.|Conversación
+1|p|请坐。|qǐng zuò|Siéntese, por favor.|Conversación
+1|p|喂，你好！|wèi nǐ hǎo|¿Diga? ¡Hola!|Conversación
+1|p|现在几点？|xiàn zài jǐ diǎn|¿Qué hora es ahora?|Conversación
+1|s|你叫什么名字？|nǐ jiào shén me míng zi|¿Cómo te llamas?|Conversación
+1|s|很高兴认识你。|hěn gāo xìng rèn shi nǐ|Encantado de conocerte.|Citas
+1|s|他是我的朋友。|tā shì wǒ de péng you|Él es mi amigo.|Conversación
+1|s|我今天很高兴。|wǒ jīn tiān hěn gāo xìng|Hoy estoy muy contento.|Conversación
+1|s|今天天气很好。|jīn tiān tiān qì hěn hǎo|Hoy hace buen tiempo.|Conversación
+1|s|明天下午我去学校。|míng tiān xià wǔ wǒ qù xué xiào|Mañana por la tarde voy a la escuela.|Conversación
+1|s|你住在哪儿？|nǐ zhù zài nǎ r|¿Dónde vives?|Conversación
+1|s|我住在北京。|wǒ zhù zài Běi jīng|Vivo en Pekín.|Conversación
+1|s|你会说汉语吗？|nǐ huì shuō Hàn yǔ ma|¿Sabes hablar chino?|Conversación
+1|s|我会说一点儿。|wǒ huì shuō yì diǎn r|Hablo un poco.|Conversación
+1|s|我们去饭店吃饭。|wǒ men qù fàn diàn chī fàn|Vamos al restaurante a comer.|Comida
+1|s|这个苹果多少钱？|zhè ge píng guǒ duō shao qián|¿Cuánto cuesta esta manzana?|Comida
+1|s|我想买一本书。|wǒ xiǎng mǎi yì běn shū|Quiero comprar un libro.|Conversación
+1|s|他在家看电视。|tā zài jiā kàn diàn shì|Él está en casa viendo la tele.|Conversación
+1|s|我们是同学。|wǒ men shì tóng xué|Somos compañeros de clase.|Conversación
+1|s|你有女儿吗？|nǐ yǒu nǚ ér ma|¿Tienes alguna hija?|Conversación
+1|s|我妈妈是医生。|wǒ mā ma shì yī shēng|Mi madre es médica.|Conversación
+1|s|今天星期几？|jīn tiān xīng qī jǐ|¿Qué día de la semana es hoy?|Conversación
+1|s|我喜欢喝茶。|wǒ xǐ huan hē chá|Me gusta beber té.|Comida
+1|s|这个字怎么读？|zhè ge zì zěn me dú|¿Cómo se lee este carácter?|Conversación
+1|s|我昨天看了电影。|wǒ zuó tiān kàn le diàn yǐng|Ayer vi una película.|Citas
+1|s|你今天怎么样？|nǐ jīn tiān zěn me yàng|¿Qué tal hoy?|Conversación
+1|s|他们都是老师。|tā men dōu shì lǎo shī|Todos ellos son profesores.|Trabajo
+1|s|我不喜欢冷天气。|wǒ bù xǐ huan lěng tiān qì|No me gusta el tiempo frío.|Conversación
+1|s|我能坐这儿吗？|wǒ néng zuò zhè r ma|¿Puedo sentarme aquí?|Viajes
+1|s|我明天不工作。|wǒ míng tiān bù gōng zuò|Mañana no trabajo.|Trabajo
+1|s|他想去中国学习。|tā xiǎng qù Zhōng guó xué xí|Él quiere ir a China a estudiar.|Viajes
+1|s|我坐出租车去医院。|wǒ zuò chū zū chē qù yī yuàn|Voy al hospital en taxi.|Viajes
+2|w|您|nín|usted
+2|w|它|tā|ello (animal o cosa)
+2|w|大家|dà jiā|todos, todo el mundo
+2|w|每|měi|cada
+2|w|为什么|wèi shén me|por qué
+2|w|零|líng|cero
+2|w|两|liǎng|dos (con clasificador)
+2|w|百|bǎi|cien
+2|w|千|qiān|mil
+2|w|第一|dì yī|primero
+2|w|次|cì|vez
+2|w|件|jiàn|(clasificador de ropa, asuntos)
+2|w|别|bié|no (imperativo)
+2|w|非常|fēi cháng|muy, sumamente
+2|w|也|yě|también
+2|w|还|hái|todavía; además
+2|w|最|zuì|el más
+2|w|真|zhēn|de verdad, realmente
+2|w|正在|zhèng zài|estar (haciendo algo)
+2|w|已经|yǐ jīng|ya
+2|w|一起|yì qǐ|juntos
+2|w|再|zài|otra vez (futuro)
+2|w|就|jiù|entonces, ya, justo
+2|w|因为|yīn wèi|porque
+2|w|所以|suǒ yǐ|por eso
+2|w|虽然|suī rán|aunque
+2|w|但是|dàn shì|pero
+2|w|从|cóng|desde
+2|w|比|bǐ|comparado con, más que
+2|w|往|wǎng|hacia
+2|w|离|lí|distar de, estar a (distancia)
+2|w|得|de|(partícula de grado / complemento)
+2|w|着|zhe|(partícula de estado continuo)
+2|w|过|guo|(partícula de experiencia: haber hecho)
+2|w|吧|ba|(partícula de sugerencia)
+2|w|机场|jī chǎng|aeropuerto
+2|w|教室|jiào shì|aula
+2|w|房间|fáng jiān|habitación
+2|w|路|lù|camino, calle
+2|w|左边|zuǒ bian|izquierda
+2|w|右边|yòu bian|derecha
+2|w|外|wài|fuera
+2|w|旁边|páng biān|al lado
+2|w|一下|yí xià|un momento (hacer algo brevemente)
+2|w|早上|zǎo shang|por la mañana (temprano)
+2|w|晚上|wǎn shang|por la noche
+2|w|小时|xiǎo shí|hora (duración)
+2|w|时间|shí jiān|tiempo
+2|w|去年|qù nián|el año pasado
+2|w|日|rì|día
+2|w|生日|shēng rì|cumpleaños
+2|w|哥哥|gē ge|hermano mayor
+2|w|姐姐|jiě jie|hermana mayor
+2|w|弟弟|dì di|hermano menor
+2|w|妹妹|mèi mei|hermana menor
+2|w|丈夫|zhàng fu|marido
+2|w|妻子|qī zi|esposa
+2|w|孩子|hái zi|niño, hijo
+2|w|男人|nán rén|hombre
+2|w|女人|nǚ rén|mujer
+2|w|服务员|fú wù yuán|camarero
+2|w|鱼|yú|pescado, pez
+2|w|羊肉|yáng ròu|cordero
+2|w|牛奶|niú nǎi|leche
+2|w|鸡蛋|jī dàn|huevo
+2|w|西瓜|xī guā|sandía
+2|w|咖啡|kā fēi|café
+2|w|雪|xuě|nieve
+2|w|药|yào|medicina
+2|w|手机|shǒu jī|móvil
+2|w|手表|shǒu biǎo|reloj de pulsera
+2|w|眼睛|yǎn jing|ojos
+2|w|身体|shēn tǐ|cuerpo, salud
+2|w|公共汽车|gōng gòng qì chē|autobús
+2|w|报纸|bào zhǐ|periódico
+2|w|门|mén|puerta
+2|w|题|tí|pregunta (de examen), tema
+2|w|课|kè|clase, lección
+2|w|姓|xìng|apellido, apellidarse
+2|w|问题|wèn tí|problema, pregunta
+2|w|事情|shì qing|asunto, cosa (que hacer)
+2|w|考试|kǎo shì|examen
+2|w|票|piào|billete, entrada
+2|w|意思|yì si|significado
+2|w|颜色|yán sè|color
+2|w|铅笔|qiān bǐ|lápiz
+2|w|面条|miàn tiáo|fideos
+2|w|火车站|huǒ chē zhàn|estación de tren
+2|w|公司|gōng sī|empresa
+2|w|宾馆|bīn guǎn|hotel
+2|w|说话|shuō huà|hablar
+2|w|卖|mài|vender
+2|w|问|wèn|preguntar
+2|w|走|zǒu|andar, irse
+2|w|进|jìn|entrar
+2|w|出|chū|salir
+2|w|跑步|pǎo bù|correr
+2|w|到|dào|llegar
+2|w|穿|chuān|llevar puesto, ponerse
+2|w|洗|xǐ|lavar
+2|w|给|gěi|dar; a, para
+2|w|找|zhǎo|buscar
+2|w|懂|dǒng|entender
+2|w|笑|xiào|reír, sonreír
+2|w|告诉|gào su|decir, avisar
+2|w|准备|zhǔn bèi|preparar
+2|w|开始|kāi shǐ|empezar
+2|w|介绍|jiè shào|presentar
+2|w|帮助|bāng zhù|ayudar, ayuda
+2|w|玩|wán|jugar, divertirse
+2|w|送|sòng|regalar; acompañar; llevar
+2|w|等|děng|esperar
+2|w|让|ràng|dejar, hacer que
+2|w|起床|qǐ chuáng|levantarse
+2|w|唱歌|chàng gē|cantar
+2|w|跳舞|tiào wǔ|bailar
+2|w|旅游|lǚ yóu|viajar, hacer turismo
+2|w|上班|shàng bān|ir a trabajar
+2|w|生病|shēng bìng|ponerse enfermo
+2|w|休息|xiū xi|descansar
+2|w|运动|yùn dòng|hacer deporte
+2|w|游泳|yóu yǒng|nadar
+2|w|踢足球|tī zú qiú|jugar al fútbol
+2|w|打篮球|dǎ lán qiú|jugar al baloncesto
+2|w|完|wán|terminar
+2|w|觉得|jué de|pensar, parecer
+2|w|知道|zhī dào|saber
+2|w|希望|xī wàng|esperar (desear)
+2|w|可以|kě yǐ|poder (permiso)
+2|w|要|yào|querer; deber; ir a
+2|w|可能|kě néng|quizás, es posible
+2|w|高|gāo|alto
+2|w|红|hóng|rojo
+2|w|白|bái|blanco
+2|w|黑|hēi|negro
+2|w|忙|máng|ocupado
+2|w|快|kuài|rápido
+2|w|慢|màn|lento
+2|w|远|yuǎn|lejos
+2|w|近|jìn|cerca
+2|w|好吃|hǎo chī|rico
+2|w|累|lèi|cansado
+2|w|长|cháng|largo
+2|w|新|xīn|nuevo
+2|w|贵|guì|caro
+2|w|便宜|pián yi|barato
+2|w|晴|qíng|despejado
+2|w|阴|yīn|nublado
+2|w|错|cuò|equivocado, error
+2|w|快乐|kuài lè|feliz
+2|w|对|duì|correcto; a, hacia
+2|p|您好！|nín hǎo|¡Hola! (formal)|Conversación
+2|p|为什么？|wèi shén me|¿Por qué?|Conversación
+2|p|没问题。|méi wèn tí|No hay problema.|Conversación
+2|p|太贵了。|tài guì le|Demasiado caro.|Comida
+2|p|我知道。|wǒ zhī dào|Lo sé.|Conversación
+2|p|我不懂。|wǒ bù dǒng|No entiendo.|Conversación
+2|p|等一下。|děng yí xià|Espera un momento.|Conversación
+2|p|一起去吧。|yì qǐ qù ba|Vamos juntos.|Citas
+2|p|你真漂亮！|nǐ zhēn piào liang|¡Qué guapa eres!|Citas
+2|p|快一点儿！|kuài yì diǎn r|¡Más rápido!|Conversación
+2|p|我累了。|wǒ lèi le|Estoy cansado.|Conversación
+2|p|生日快乐！|shēng rì kuài lè|¡Feliz cumpleaños!|Conversación
+2|p|我也是。|wǒ yě shì|Yo también.|Conversación
+2|p|非常好吃。|fēi cháng hǎo chī|Está muy rico.|Comida
+2|p|别说话。|bié shuō huà|No hables.|Conversación
+2|p|慢慢来。|màn màn lái|Con calma.|Conversación
+2|p|你找谁？|nǐ zhǎo shéi|¿A quién buscas?|Trabajo
+2|p|我们到了。|wǒ men dào le|Hemos llegado.|Viajes
+2|s|你为什么学汉语？|nǐ wèi shén me xué Hàn yǔ|¿Por qué estudias chino?|Conversación
+2|s|我每天早上跑步。|wǒ měi tiān zǎo shang pǎo bù|Corro cada mañana.|Conversación
+2|s|你几点起床？|nǐ jǐ diǎn qǐ chuáng|¿A qué hora te levantas?|Conversación
+2|s|我们一起吃饭吧。|wǒ men yì qǐ chī fàn ba|Comamos juntos.|Citas
+2|s|机场离这儿远吗？|jī chǎng lí zhè r yuǎn ma|¿Está lejos el aeropuerto de aquí?|Viajes
+2|s|火车站在左边。|huǒ chē zhàn zài zuǒ bian|La estación de tren está a la izquierda.|Viajes
+2|s|我已经吃过了。|wǒ yǐ jīng chī guo le|Ya he comido.|Comida
+2|s|你觉得怎么样？|nǐ jué de zěn me yàng|¿Qué te parece?|Conversación
+2|s|我希望你快乐。|wǒ xī wàng nǐ kuài lè|Espero que seas feliz.|Citas
+2|s|他正在准备考试。|tā zhèng zài zhǔn bèi kǎo shì|Él está preparando el examen.|Conversación
+2|s|我可以帮助你。|wǒ kě yǐ bāng zhù nǐ|Puedo ayudarte.|Conversación
+2|s|这件衣服太贵了。|zhè jiàn yī fu tài guì le|Esta prenda es demasiado cara.|Comida
+2|s|请给我一杯咖啡。|qǐng gěi wǒ yì bēi kā fēi|Un café, por favor.|Comida
+2|s|你的手机真新。|nǐ de shǒu jī zhēn xīn|Tu móvil es muy nuevo.|Conversación
+2|s|我想去旅游。|wǒ xiǎng qù lǚ yóu|Quiero ir de viaje.|Viajes
+2|s|他比我高。|tā bǐ wǒ gāo|Él es más alto que yo.|Conversación
+2|s|今天下雪了。|jīn tiān xià xuě le|Hoy ha nevado.|Conversación
+2|s|因为生病，所以没上班。|yīn wèi shēng bìng suǒ yǐ méi shàng bān|Como estaba enfermo, no fui a trabajar.|Trabajo
+2|s|虽然很累，但是很快乐。|suī rán hěn lèi dàn shì hěn kuài lè|Aunque estoy cansado, estoy feliz.|Conversación
+2|s|我给你介绍一下。|wǒ gěi nǐ jiè shào yí xià|Te presento a alguien.|Conversación
+2|s|我们从这儿走。|wǒ men cóng zhè r zǒu|Vamos por aquí.|Viajes
+2|s|你要吃药。|nǐ yào chī yào|Tienes que tomar la medicina.|Conversación
+2|s|这个问题是什么意思？|zhè ge wèn tí shì shén me yì si|¿Qué significa esta pregunta?|Conversación
+2|s|我早上喝牛奶。|wǒ zǎo shang hē niú nǎi|Por la mañana bebo leche.|Comida
+2|s|你喜欢什么颜色？|nǐ xǐ huan shén me yán sè|¿Qué color te gusta?|Citas
+2|s|时间不早了。|shí jiān bù zǎo le|Ya es tarde.|Conversación
+2|s|他让我等他。|tā ràng wǒ děng tā|Él me pidió que lo esperara.|Conversación
+2|s|我有两个姐姐。|wǒ yǒu liǎng ge jiě jie|Tengo dos hermanas mayores.|Conversación
+2|s|我们晚上去唱歌吧。|wǒ men wǎn shang qù chàng gē ba|Vamos a cantar esta noche.|Citas
+2|s|这个房间有点儿小。|zhè ge fáng jiān yǒu diǎn r xiǎo|Esta habitación es un poco pequeña.|Viajes
+2|s|我在公司上班。|wǒ zài gōng sī shàng bān|Trabajo en una empresa.|Trabajo
+2|s|请问，宾馆在哪儿？|qǐng wèn bīn guǎn zài nǎ r|Perdone, ¿dónde está el hotel?|Viajes
+3|w|阿姨|ā yí|tía; señora (de limpieza, cuidadora)
+3|w|啊|a|(interjección) ah
+3|w|矮|ǎi|bajo (de estatura)
+3|w|爱好|ài hào|afición
+3|w|安静|ān jìng|tranquilo, silencioso
+3|w|把|bǎ|(partícula que adelanta el objeto)
+3|w|班|bān|clase (grupo); turno
+3|w|搬|bān|mudarse, trasladar
+3|w|半|bàn|mitad, media
+3|w|办法|bàn fǎ|manera, solución
+3|w|办公室|bàn gōng shì|oficina
+3|w|帮忙|bāng máng|echar una mano
+3|w|包|bāo|bolso, paquete; envolver
+3|w|饱|bǎo|lleno (saciado)
+3|w|北方|běi fāng|el norte
+3|w|被|bèi|(pasiva) por
+3|w|鼻子|bí zi|nariz
+3|w|比较|bǐ jiào|bastante; comparar
+3|w|比赛|bǐ sài|competición, partido
+3|w|笔记本|bǐ jì běn|cuaderno; portátil
+3|w|必须|bì xū|tener que, deber
+3|w|变化|biàn huà|cambio
+3|w|别人|bié ren|los demás
+3|w|冰箱|bīng xiāng|nevera
+3|w|菜单|cài dān|menú, carta
+3|w|参加|cān jiā|participar, asistir
+3|w|草|cǎo|hierba
+3|w|层|céng|piso, planta; capa
+3|w|差|chà|malo; faltar
+3|w|超市|chāo shì|supermercado
+3|w|衬衫|chèn shān|camisa
+3|w|成绩|chéng jì|nota, resultado
+3|w|城市|chéng shì|ciudad
+3|w|迟到|chí dào|llegar tarde
+3|w|除了|chú le|aparte de, excepto
+3|w|船|chuán|barco
+3|w|春|chūn|primavera
+3|w|词典|cí diǎn|diccionario
+3|w|聪明|cōng ming|inteligente
+3|w|打扫|dǎ sǎo|limpiar
+3|w|打算|dǎ suàn|planear, plan
+3|w|带|dài|llevar (consigo); traer
+3|w|担心|dān xīn|preocuparse
+3|w|蛋糕|dàn gāo|tarta, pastel
+3|w|当然|dāng rán|por supuesto
+3|w|地|de|(partícula adverbial)
+3|w|灯|dēng|lámpara, luz
+3|w|地方|dì fang|lugar
+3|w|地铁|dì tiě|metro
+3|w|地图|dì tú|mapa
+3|w|电梯|diàn tī|ascensor
+3|w|电子邮件|diàn zǐ yóu jiàn|correo electrónico
+3|w|东|dōng|este (punto cardinal)
+3|w|冬|dōng|invierno
+3|w|动物|dòng wù|animal
+3|w|短|duǎn|corto
+3|w|段|duàn|tramo, párrafo, periodo
+3|w|锻炼|duàn liàn|hacer ejercicio
+3|w|多么|duō me|qué (tan)...
+3|w|饿|è|tener hambre
+3|w|不但|bú dàn|no solo
+3|w|而且|ér qiě|sino también, además
+3|w|耳朵|ěr duo|oreja, oído
+3|w|发|fā|enviar, emitir
+3|w|发烧|fā shāo|tener fiebre
+3|w|发现|fā xiàn|descubrir
+3|w|方便|fāng biàn|cómodo, práctico
+3|w|放|fàng|poner, dejar
+3|w|放心|fàng xīn|estar tranquilo
+3|w|分|fēn|minuto; céntimo; dividir
+3|w|附近|fù jìn|cerca, alrededores
+3|w|复习|fù xí|repasar
+3|w|干净|gān jìng|limpio
+3|w|感兴趣|gǎn xìng qù|interesarse por
+3|w|感冒|gǎn mào|resfriarse, resfriado
+3|w|刚才|gāng cái|hace un momento
+3|w|个子|gè zi|estatura
+3|w|跟|gēn|con; seguir
+3|w|根据|gēn jù|según
+3|w|更|gèng|más (aún)
+3|w|公斤|gōng jīn|kilo
+3|w|公园|gōng yuán|parque
+3|w|故事|gù shi|historia, cuento
+3|w|刮风|guā fēng|hacer viento
+3|w|关|guān|cerrar, apagar
+3|w|关系|guān xi|relación
+3|w|关心|guān xīn|preocuparse por, cuidar de
+3|w|关于|guān yú|sobre, acerca de
+3|w|国家|guó jiā|país
+3|w|过去|guò qù|pasado; pasar (al otro lado)
+3|w|过|guò|pasar, cruzar; celebrar
+3|w|还是|hái shi|o (en preguntas); mejor
+3|w|害怕|hài pà|tener miedo
+3|w|黑板|hēi bǎn|pizarra
+3|w|后来|hòu lái|después, más tarde
+3|w|护照|hù zhào|pasaporte
+3|w|花|huā|flor; gastar
+3|w|画|huà|pintar, dibujo
+3|w|坏|huài|malo, roto
+3|w|欢迎|huān yíng|bienvenido, dar la bienvenida
+3|w|还|huán|devolver
+3|w|环境|huán jìng|entorno, medio ambiente
+3|w|换|huàn|cambiar
+3|w|黄河|Huáng Hé|río Amarillo
+3|w|回答|huí dá|responder
+3|w|会议|huì yì|reunión
+3|w|或者|huò zhě|o (en afirmaciones)
+3|w|几乎|jī hū|casi
+3|w|机会|jī huì|oportunidad
+3|w|极|jí|extremadamente
+3|w|记得|jì de|recordar
+3|w|季节|jì jié|estación del año
+3|w|检查|jiǎn chá|revisar, examinar
+3|w|简单|jiǎn dān|sencillo
+3|w|健康|jiàn kāng|salud, sano
+3|w|见面|jiàn miàn|verse, quedar
+3|w|讲|jiǎng|contar, explicar
+3|w|教|jiāo|enseñar
+3|w|角|jiǎo|jiao (10 céntimos); esquina
+3|w|脚|jiǎo|pie
+3|w|接|jiē|recoger (a alguien); coger (llamada)
+3|w|街道|jiē dào|calle
+3|w|结婚|jié hūn|casarse
+3|w|结束|jié shù|terminar
+3|w|节目|jié mù|programa
+3|w|节日|jié rì|fiesta, festividad
+3|w|解决|jiě jué|resolver
+3|w|借|jiè|pedir prestado, prestar
+3|w|经常|jīng cháng|a menudo
+3|w|经过|jīng guò|pasar por; a través de
+3|w|经理|jīng lǐ|gerente
+3|w|久|jiǔ|mucho tiempo
+3|w|旧|jiù|viejo (usado)
+3|w|句子|jù zi|frase
+3|w|决定|jué dìng|decidir
+3|w|渴|kě|tener sed
+3|w|可爱|kě ài|adorable, mono
+3|w|刻|kè|cuarto de hora
+3|w|客人|kè rén|invitado, cliente
+3|w|空调|kōng tiáo|aire acondicionado
+3|w|口|kǒu|boca; (clasificador de personas)
+3|w|哭|kū|llorar
+3|w|裤子|kù zi|pantalones
+3|w|筷子|kuài zi|palillos
+3|w|蓝|lán|azul
+3|w|老|lǎo|viejo, mayor
+3|w|离开|lí kāi|marcharse, dejar
+3|w|礼物|lǐ wù|regalo
+3|w|历史|lì shǐ|historia
+3|w|脸|liǎn|cara
+3|w|聊天|liáo tiān|charlar
+3|w|练习|liàn xí|practicar, ejercicio
+3|w|辆|liàng|(clasificador de vehículos)
+3|w|了解|liǎo jiě|conocer bien, entender
+3|w|邻居|lín jū|vecino
+3|w|留学|liú xué|estudiar en el extranjero
+3|w|楼|lóu|edificio; piso
+3|w|绿|lǜ|verde
+3|w|马|mǎ|caballo
+3|w|马上|mǎ shàng|enseguida
+3|w|满意|mǎn yì|satisfecho
+3|w|帽子|mào zi|gorro, sombrero
+3|w|米|mǐ|metro; arroz
+3|w|面包|miàn bāo|pan
+3|w|明白|míng bai|entender, claro
+3|w|拿|ná|coger, llevar en la mano
+3|w|奶奶|nǎi nai|abuela paterna
+3|w|南|nán|sur
+3|w|难|nán|difícil
+3|w|难过|nán guò|triste
+3|w|年级|nián jí|curso (escolar)
+3|w|年轻|nián qīng|joven
+3|w|鸟|niǎo|pájaro
+3|w|努力|nǔ lì|esforzarse
+3|w|爬山|pá shān|subir montañas, hacer senderismo
+3|w|盘子|pán zi|plato
+3|w|胖|pàng|gordo
+3|w|啤酒|pí jiǔ|cerveza
+3|w|皮鞋|pí xié|zapatos de piel
+3|w|瓶子|píng zi|botella
+3|w|其实|qí shí|en realidad
+3|w|其他|qí tā|otros
+3|w|骑|qí|montar (bici, caballo)
+3|w|奇怪|qí guài|raro, extraño
+3|w|起来|qǐ lái|levantarse; empezar a
+3|w|起飞|qǐ fēi|despegar
+3|w|清楚|qīng chu|claro
+3|w|请假|qǐng jià|pedir días libres
+3|w|秋|qiū|otoño
+3|w|裙子|qún zi|falda
+3|w|然后|rán hòu|después, luego
+3|w|热情|rè qíng|cálido, entusiasta
+3|w|认为|rèn wéi|considerar, opinar
+3|w|认真|rèn zhēn|serio, aplicado
+3|w|容易|róng yì|fácil
+3|w|如果|rú guǒ|si (condicional)
+3|w|伞|sǎn|paraguas
+3|w|上网|shàng wǎng|conectarse a internet
+3|w|生气|shēng qì|enfadarse
+3|w|声音|shēng yīn|sonido, voz
+3|w|试|shì|probar
+3|w|世界|shì jiè|mundo
+3|w|瘦|shòu|delgado
+3|w|舒服|shū fu|cómodo, a gusto
+3|w|叔叔|shū shu|tío
+3|w|树|shù|árbol
+3|w|数学|shù xué|matemáticas
+3|w|刷牙|shuā yá|cepillarse los dientes
+3|w|双|shuāng|par
+3|w|水平|shuǐ píng|nivel
+3|w|司机|sī jī|conductor
+3|w|太阳|tài yáng|sol
+3|w|特别|tè bié|especialmente, especial
+3|w|疼|téng|doler
+3|w|提高|tí gāo|mejorar, subir
+3|w|体育|tǐ yù|deporte, educación física
+3|w|甜|tián|dulce
+3|w|条|tiáo|(clasificador de cosas alargadas)
+3|w|同事|tóng shì|compañero de trabajo
+3|w|同意|tóng yì|estar de acuerdo
+3|w|头发|tóu fa|pelo
+3|w|突然|tū rán|de repente
+3|w|图书馆|tú shū guǎn|biblioteca
+3|w|腿|tuǐ|pierna
+3|w|完成|wán chéng|completar
+3|w|碗|wǎn|cuenco
+3|w|万|wàn|diez mil
+3|w|忘记|wàng jì|olvidar
+3|w|为|wèi|para, por
+3|w|为了|wèi le|para (finalidad)
+3|w|位|wèi|(clasificador cortés de personas)
+3|w|文化|wén huà|cultura
+3|w|西|xī|oeste
+3|w|习惯|xí guàn|costumbre; acostumbrarse
+3|w|洗手间|xǐ shǒu jiān|aseo, baño
+3|w|洗澡|xǐ zǎo|ducharse, bañarse
+3|w|夏|xià|verano
+3|w|先|xiān|primero, antes
+3|w|香蕉|xiāng jiāo|plátano
+3|w|相信|xiāng xìn|creer, confiar
+3|w|向|xiàng|hacia
+3|w|像|xiàng|parecerse; como
+3|w|小心|xiǎo xīn|tener cuidado
+3|w|校长|xiào zhǎng|director (de colegio)
+3|w|新闻|xīn wén|noticias
+3|w|新鲜|xīn xiān|fresco
+3|w|信用卡|xìn yòng kǎ|tarjeta de crédito
+3|w|行李箱|xíng li xiāng|maleta
+3|w|熊猫|xióng māo|panda
+3|w|需要|xū yào|necesitar
+3|w|选择|xuǎn zé|elegir
+3|w|要求|yāo qiú|exigir, requisito
+3|w|爷爷|yé ye|abuelo paterno
+3|w|一定|yí dìng|seguro, sin falta
+3|w|一共|yí gòng|en total
+3|w|一会儿|yí huì r|un rato
+3|w|一样|yí yàng|igual
+3|w|以前|yǐ qián|antes
+3|w|一般|yì bān|normalmente; normal
+3|w|一边|yì biān|mientras (hacer dos cosas)
+3|w|一直|yì zhí|siempre, todo el tiempo; todo recto
+3|w|音乐|yīn yuè|música
+3|w|银行|yín háng|banco
+3|w|饮料|yǐn liào|bebida
+3|w|应该|yīng gāi|deber
+3|w|影响|yǐng xiǎng|influir, influencia
+3|w|用|yòng|usar
+3|w|游戏|yóu xì|juego
+3|w|有名|yǒu míng|famoso
+3|w|又|yòu|otra vez (ya ocurrido)
+3|w|遇到|yù dào|encontrarse con
+3|w|元|yuán|yuan
+3|w|愿意|yuàn yì|estar dispuesto, querer
+3|w|月亮|yuè liang|luna
+3|w|越|yuè|cuanto más
+3|w|站|zhàn|estación, parada; estar de pie
+3|w|张|zhāng|(clasificador de objetos planos)
+3|w|长|zhǎng|crecer
+3|w|着急|zháo jí|estar ansioso, tener prisa
+3|w|照顾|zhào gù|cuidar
+3|w|照片|zhào piàn|foto
+3|w|照相机|zhào xiàng jī|cámara de fotos
+3|w|只|zhī|(clasificador de animales)
+3|w|只|zhǐ|solo, solamente
+3|w|只有|zhǐ yǒu|solo si, solo cuando
+3|w|才|cái|solo entonces, recién
+3|w|中文|Zhōng wén|chino (idioma)
+3|w|中间|zhōng jiān|en medio
+3|w|终于|zhōng yú|por fin
+3|w|种|zhǒng|tipo, clase
+3|w|重要|zhòng yào|importante
+3|w|周末|zhōu mò|fin de semana
+3|w|主要|zhǔ yào|principal
+3|w|注意|zhù yì|prestar atención
+3|w|自己|zì jǐ|uno mismo
+3|w|自行车|zì xíng chē|bicicleta
+3|w|总是|zǒng shì|siempre
+3|w|嘴|zuǐ|boca
+3|w|最后|zuì hòu|al final, último
+3|w|最近|zuì jìn|últimamente
+3|w|作业|zuò yè|deberes
+3|p|别担心。|bié dān xīn|No te preocupes.|Conversación
+3|p|当然可以。|dāng rán kě yǐ|Por supuesto que sí.|Conversación
+3|p|我马上到。|wǒ mǎ shàng dào|Llego enseguida.|Citas
+3|p|没办法。|méi bàn fǎ|No hay manera.|Conversación
+3|p|放心吧。|fàng xīn ba|Tranquilo.|Conversación
+3|p|太奇怪了。|tài qí guài le|Qué raro.|Conversación
+3|p|小心点儿！|xiǎo xīn diǎn r|¡Ten cuidado!|Viajes
+3|p|我习惯了。|wǒ xí guàn le|Ya me he acostumbrado.|Conversación
+3|p|我同意。|wǒ tóng yì|Estoy de acuerdo.|Trabajo
+3|p|终于到了！|zhōng yú dào le|¡Por fin llegamos!|Viajes
+3|p|其实不难。|qí shí bù nán|En realidad no es difícil.|Conversación
+3|p|我明白了。|wǒ míng bai le|Ya lo entiendo.|Conversación
+3|p|一共多少钱？|yí gòng duō shao qián|¿Cuánto es en total?|Comida
+3|p|请帮帮忙。|qǐng bāng bang máng|Échame una mano, por favor.|Conversación
+3|p|她又哭了。|tā yòu kū le|Ha vuelto a llorar.|Conversación
+3|p|我饿了。|wǒ è le|Tengo hambre.|Comida
+3|p|好久不见！|hǎo jiǔ bú jiàn|¡Cuánto tiempo sin verte!|Conversación
+3|s|我对音乐很感兴趣。|wǒ duì yīn yuè hěn gǎn xìng qù|Me interesa mucho la música.|Citas
+3|s|周末你有什么打算？|zhōu mò nǐ yǒu shén me dǎ suàn|¿Qué planes tienes el fin de semana?|Citas
+3|s|我们明天见面吧。|wǒ men míng tiān jiàn miàn ba|Quedemos mañana.|Citas
+3|s|附近有银行吗？|fù jìn yǒu yín háng ma|¿Hay un banco cerca?|Viajes
+3|s|地铁站在哪儿？|dì tiě zhàn zài nǎ r|¿Dónde está la estación de metro?|Viajes
+3|s|这个菜特别好吃。|zhè ge cài tè bié hǎo chī|Este plato está especialmente rico.|Comida
+3|s|我下午有会议。|wǒ xià wǔ yǒu huì yì|Por la tarde tengo reunión.|Trabajo
+3|s|经理对我很满意。|jīng lǐ duì wǒ hěn mǎn yì|El gerente está muy satisfecho conmigo.|Trabajo
+3|s|如果下雨，我就不去。|rú guǒ xià yǔ wǒ jiù bú qù|Si llueve, no voy.|Conversación
+3|s|我经常和同事聊天。|wǒ jīng cháng hé tóng shì liáo tiān|A menudo charlo con mis compañeros.|Trabajo
+3|s|你必须努力学习。|nǐ bì xū nǔ lì xué xí|Tienes que estudiar con esfuerzo.|Conversación
+3|s|我决定去留学。|wǒ jué dìng qù liú xué|He decidido ir a estudiar al extranjero.|Conversación
+3|s|请把护照给我。|qǐng bǎ hù zhào gěi wǒ|Deme el pasaporte, por favor.|Viajes
+3|s|他的汉语水平很高。|tā de Hàn yǔ shuǐ píng hěn gāo|Su nivel de chino es muy alto.|Conversación
+3|s|我们除了周末都上班。|wǒ men chú le zhōu mò dōu shàng bān|Trabajamos todos los días menos el fin de semana.|Trabajo
+3|s|这条裙子很漂亮。|zhè tiáo qún zi hěn piào liang|Esta falda es muy bonita.|Citas
+3|s|我有点儿担心你。|wǒ yǒu diǎn r dān xīn nǐ|Estoy un poco preocupado por ti.|Citas
+3|s|你最近怎么样？|nǐ zuì jìn zěn me yàng|¿Cómo te va últimamente?|Conversación
+3|s|我想换一个房间。|wǒ xiǎng huàn yí ge fáng jiān|Quiero cambiar de habitación.|Viajes
+3|s|可以用信用卡吗？|kě yǐ yòng xìn yòng kǎ ma|¿Se puede pagar con tarjeta?|Comida
+3|s|我们先吃饭，然后看电影。|wǒ men xiān chī fàn rán hòu kàn diàn yǐng|Primero comemos y luego vemos una película.|Citas
+3|s|他突然生气了。|tā tū rán shēng qì le|De repente se enfadó.|Conversación
+3|s|我今天迟到了。|wǒ jīn tiān chí dào le|Hoy he llegado tarde.|Trabajo
+3|s|这个办法很简单。|zhè ge bàn fǎ hěn jiǎn dān|Esta solución es muy sencilla.|Trabajo
+3|s|你愿意和我见面吗？|nǐ yuàn yì hé wǒ jiàn miàn ma|¿Quieres quedar conmigo?|Citas
+3|s|我相信你一定可以。|wǒ xiāng xìn nǐ yí dìng kě yǐ|Confío en que seguro que puedes.|Conversación
+3|s|关于这个问题，我同意。|guān yú zhè ge wèn tí wǒ tóng yì|Sobre este asunto, estoy de acuerdo.|Trabajo
+3|s|请注意时间。|qǐng zhù yì shí jiān|Fíjate en la hora, por favor.|Trabajo
+3|s|他比以前瘦了。|tā bǐ yǐ qián shòu le|Está más delgado que antes.|Conversación
+3|s|我需要一会儿时间。|wǒ xū yào yí huì r shí jiān|Necesito un rato.|Conversación
+3|s|这是我自己做的。|zhè shì wǒ zì jǐ zuò de|Esto lo he hecho yo mismo.|Comida
+3|s|环境越来越好。|huán jìng yuè lái yuè hǎo|El entorno es cada vez mejor.|Conversación
+3|s|我们一边吃一边聊。|wǒ men yì biān chī yì biān liáo|Comemos mientras charlamos.|Citas
+3|s|你能帮我照顾猫吗？|nǐ néng bāng wǒ zhào gù māo ma|¿Puedes cuidarme el gato?|Conversación
+3|s|他讲的故事很有意思。|tā jiǎng de gù shi hěn yǒu yì si|La historia que cuenta es muy interesante.|Conversación
+3|s|我最后选择了这个。|wǒ zuì hòu xuǎn zé le zhè ge|Al final elegí este.|Comida
+3|s|请检查一下行李箱。|qǐng jiǎn chá yí xià xíng li xiāng|Revise la maleta, por favor.|Viajes
+3|s|我总是忘记带伞。|wǒ zǒng shì wàng jì dài sǎn|Siempre me olvido de llevar paraguas.|Conversación
+3|s|这个城市很安静。|zhè ge chéng shì hěn ān jìng|Esta ciudad es muy tranquila.|Viajes
+3|s|今天的会议结束了。|jīn tiān de huì yì jié shù le|La reunión de hoy ha terminado.|Trabajo
+3|s|我觉得你说得对。|wǒ jué de nǐ shuō de duì|Creo que tienes razón.|Conversación
+3|s|我们认识很久了。|wǒ men rèn shi hěn jiǔ le|Hace mucho que nos conocemos.|Citas
+3|s|飞机几点起飞？|fēi jī jǐ diǎn qǐ fēi|¿A qué hora despega el avión?|Viajes
+3|s|我想请一天假。|wǒ xiǎng qǐng yì tiān jià|Quiero pedir un día libre.|Trabajo
+3|s|菜单上有什么饮料？|cài dān shang yǒu shén me yǐn liào|¿Qué bebidas hay en la carta?|Comida
+3|s|你是坐船还是坐飞机？|nǐ shì zuò chuán hái shi zuò fēi jī|¿Vas en barco o en avión?|Viajes
+3|s|我们的关系越来越好。|wǒ men de guān xi yuè lái yuè hǎo|Nuestra relación es cada vez mejor.|Citas
+3|s|他为了工作搬到了北京。|tā wèi le gōng zuò bān dào le Běi jīng|Se mudó a Pekín por trabajo.|Trabajo
+4|w|爱情|ài qíng|amor (romántico)
+4|w|安排|ān pái|organizar, planificar
+4|w|安全|ān quán|seguro, seguridad
+4|w|按时|àn shí|puntualmente, a tiempo
+4|w|抱歉|bào qiàn|sentirlo, perdón
+4|w|报名|bào míng|apuntarse, inscribirse
+4|w|本来|běn lái|originalmente, en principio
+4|w|比如|bǐ rú|por ejemplo
+4|w|毕业|bì yè|graduarse
+4|w|不过|bú guò|sin embargo
+4|w|差不多|chà bu duō|casi, más o menos
+4|w|成功|chéng gōng|éxito, tener éxito
+4|w|出差|chū chāi|viaje de trabajo
+4|w|出发|chū fā|salir, partir
+4|w|厨房|chú fáng|cocina
+4|w|从来|cóng lái|nunca (con negación)
+4|w|打扰|dǎ rǎo|molestar
+4|w|打折|dǎ zhé|hacer descuento
+4|w|大概|dà gài|probablemente, aproximadamente
+4|w|导游|dǎo yóu|guía turístico
+4|w|到处|dào chù|por todas partes
+4|w|道歉|dào qiàn|disculparse
+4|w|堵车|dǔ chē|atasco
+4|w|放松|fàng sōng|relajarse
+4|w|丰富|fēng fù|abundante, variado
+4|w|感动|gǎn dòng|conmoverse
+4|w|感觉|gǎn jué|sentir, sensación
+4|w|感情|gǎn qíng|sentimientos, cariño
+4|w|工资|gōng zī|sueldo
+4|w|购物|gòu wù|ir de compras
+4|w|顾客|gù kè|cliente
+4|w|害羞|hài xiū|tímido
+4|w|航班|háng bān|vuelo
+4|w|合适|hé shì|adecuado
+4|w|后悔|hòu huǐ|arrepentirse
+4|w|回忆|huí yì|recuerdo, recordar
+4|w|加班|jiā bān|hacer horas extra
+4|w|价格|jià gé|precio
+4|w|坚持|jiān chí|perseverar, mantener
+4|w|交通|jiāo tōng|tráfico, transporte
+4|w|建议|jiàn yì|sugerir, sugerencia
+4|w|紧张|jǐn zhāng|nervioso
+4|w|聚会|jù huì|reunión de amigos, fiesta
+4|w|开玩笑|kāi wán xiào|bromear
+4|w|考虑|kǎo lǜ|considerar, pensarse
+4|w|浪漫|làng màn|romántico
+4|w|旅行|lǚ xíng|viajar, viaje
+4|w|麻烦|má fan|molestia, molestar
+4|w|迷路|mí lù|perderse
+4|w|免费|miǎn fèi|gratis
+4|w|耐心|nài xīn|paciencia
+4|w|排队|pái duì|hacer cola
+4|w|陪|péi|acompañar
+4|w|签证|qiān zhèng|visado
+4|w|轻松|qīng sōng|relajado, fácil
+4|w|散步|sàn bù|pasear
+4|w|适应|shì yìng|adaptarse
+4|w|顺利|shùn lì|sin problemas, bien
+4|w|提醒|tí xǐng|recordar (a alguien), avisar
+4|w|推迟|tuī chí|aplazar, retrasar
+4|w|味道|wèi dào|sabor
+4|w|吸引|xī yǐn|atraer
+4|w|羡慕|xiàn mù|envidiar (sanamente)
+4|w|心情|xīn qíng|estado de ánimo
+4|w|邀请|yāo qǐng|invitar
+4|w|约会|yuē huì|cita
+4|w|幸福|xìng fú|felicidad, feliz
+4|w|压力|yā lì|presión, estrés
+4|w|性格|xìng gé|carácter, personalidad
+4|w|准时|zhǔn shí|puntual
+4|w|租|zū|alquilar
+4|w|餐厅|cān tīng|restaurante
+4|p|真抱歉。|zhēn bào qiàn|Lo siento mucho.|Conversación
+4|p|别开玩笑。|bié kāi wán xiào|No bromees.|Conversación
+4|p|差不多了。|chà bu duō le|Ya casi.|Conversación
+4|p|一路顺利！|yí lù shùn lì|¡Buen viaje!|Viajes
+4|p|太麻烦了。|tài má fan le|Qué fastidio.|Conversación
+4|p|打扰一下。|dǎ rǎo yí xià|Perdone que le moleste.|Conversación
+4|s|我明天出差。|wǒ míng tiān chū chāi|Mañana tengo un viaje de trabajo.|Trabajo
+4|s|我想约你吃饭。|wǒ xiǎng yuē nǐ chī fàn|Quiero invitarte a comer.|Citas
+4|s|航班推迟了两个小时。|háng bān tuī chí le liǎng ge xiǎo shí|El vuelo se ha retrasado dos horas.|Viajes
+4|s|我最近压力很大。|wǒ zuì jìn yā lì hěn dà|Últimamente tengo mucho estrés.|Trabajo
+4|s|这家餐厅的味道不错。|zhè jiā cān tīng de wèi dào bú cuò|La comida de este restaurante está buena.|Comida
+4|s|我今天又加班了。|wǒ jīn tiān yòu jiā bān le|Hoy he vuelto a hacer horas extra.|Trabajo
+4|s|她的性格很好。|tā de xìng gé hěn hǎo|Tiene muy buen carácter.|Citas
+4|s|我们去哪儿散步？|wǒ men qù nǎ r sàn bù|¿Dónde vamos a pasear?|Citas
+4|s|请提醒我按时吃药。|qǐng tí xǐng wǒ àn shí chī yào|Recuérdame tomar la medicina a tiempo.|Conversación
+4|s|我在城市里迷路了。|wǒ zài chéng shì lǐ mí lù le|Me he perdido en la ciudad.|Viajes
+4|s|价格太贵了，能打折吗？|jià gé tài guì le néng dǎ zhé ma|El precio es muy alto, ¿hay descuento?|Comida
+4|s|和你在一起很幸福。|hé nǐ zài yì qǐ hěn xìng fú|Contigo soy muy feliz.|Citas
+4|s|我建议你早点儿出发。|wǒ jiàn yì nǐ zǎo diǎn r chū fā|Te sugiero salir pronto.|Viajes
+4|s|我们坚持每天锻炼。|wǒ men jiān chí měi tiān duàn liàn|Seguimos haciendo ejercicio cada día.|Conversación
+4|s|他邀请我参加聚会。|tā yāo qǐng wǒ cān jiā jù huì|Me ha invitado a la fiesta.|Citas
+4|s|今天的交通很堵。|jīn tiān de jiāo tōng hěn dǔ|Hoy hay mucho tráfico.|Viajes
+4|s|我需要办签证。|wǒ xū yào bàn qiān zhèng|Necesito tramitar el visado.|Viajes
+4|s|这个月的工资涨了。|zhè ge yuè de gōng zī zhǎng le|El sueldo de este mes ha subido.|Trabajo`;
+const ITEMS = DATA.trim().split('\n').map((l,i)=>{const p=l.split('|');return {id:i+1,niv:+p[0],tipo:p[1],zh:p[2],py:p[3].split(' '),es:p[4],tema:p[5]||''};});
+const POS_LISTA = {
+ Verbo: '谢谢 请 是 有 看 听 说 读 写 看见 叫 来 回 去 吃 喝 睡觉 打电话 做 买 开 坐 住 学习 工作 下雨 爱 喜欢 想 认识 会 能 说话 卖 问 走 进 出 跑步 到 穿 洗 给 找 懂 笑 告诉 准备 开始 介绍 帮助 玩 送 等 让 起床 唱歌 跳舞 旅游 上班 生病 休息 运动 游泳 踢足球 打篮球 完 觉得 知道 希望 可以 要 可能 搬 帮忙 比较 变化 参加 迟到 打扫 打算 带 担心 锻炼 发 发烧 发现 放 放心 复习 感兴趣 感冒 刮风 关 关心 过去 过 害怕 花 画 欢迎 还 换 回答 记得 检查 见面 讲 教 接 结婚 结束 解决 借 经过 决定 哭 离开 聊天 练习 了解 留学 明白 拿 努力 爬山 骑 起来 起飞 请假 认为 上网 生气 试 刷牙 疼 提高 同意 完成 忘记 相信 像 小心 需要 选择 要求 影响 用 遇到 愿意 站 长 着急 照顾 注意 应该 安排 报名 毕业 成功 出差 出发 打扰 打折 道歉 放松 感动 感觉 坚持 建议 开玩笑 考虑 旅行 麻烦 迷路 排队 陪 散步 适应 提醒 推迟 吸引 羡慕 邀请 加班 堵车 购物 租 后悔 回忆',
+ Adjetivo: '好 大 小 多 少 冷 热 高兴 漂亮 高 红 白 黑 忙 快 慢 远 近 好吃 累 长 新 贵 便宜 晴 阴 错 快乐 对 矮 安静 饱 聪明 短 饿 干净 坏 简单 健康 久 旧 渴 可爱 蓝 老 绿 满意 难 难过 年轻 胖 奇怪 清楚 热情 认真 容易 瘦 舒服 甜 突然 新鲜 一样 一般 有名 重要 主要 方便 特别 差 安全 丰富 害羞 合适 紧张 浪漫 免费 轻松 顺利 幸福 准时',
+ Adverbio: '不 没 很 太 都 一点儿 别 非常 也 还 最 真 正在 已经 一起 再 就 一下 必须 当然 多么 刚才 更 几乎 极 经常 马上 其实 然后 先 一共 一会儿 一边 一直 又 才 终于 总是 最后 最近 只 一定 本来 比如 差不多 从来 大概 到处 按时',
+ Pronombre: '我 我们 你 他 她 这 那 哪 哪儿 谁 什么 多少 几 怎么 怎么样 您 它 大家 每 为什么 别人 其他 自己',
+ Numeral: '一 二 三 四 五 六 七 八 九 十 零 两 百 千 第一 万 半',
+ Clasificador: '个 岁 本 些 块 次 件 层 段 分 刻 口 辆 双 条 位 元 张 只 种 公斤 米 角',
+ Conjunción: '和 因为 所以 虽然 但是 或者 如果 不但 而且 只有 还是 不过',
+ Preposición: '在 从 比 往 离 把 被 跟 根据 关于 为 为了 向 除了',
+ Partícula: '的 了 吗 呢 得 着 过 吧 地',
+ Expresión: '喂 不客气 再见 对不起 没关系 啊 没问题'
+};
+const POS = {};
+for (const [k, v] of Object.entries(POS_LISTA)) v.split(' ').forEach(w => { if (!POS[w]) POS[w] = k; });
+POS['过'] = 'Verbo'; POS['只'] = 'Adverbio'; POS['洗澡']='Verbo'; POS['抱歉']='Verbo'; POS['后来']='Adverbio'; POS['越']='Adverbio'; POS['以前']='Adverbio';
+function categoria(it){
+  if (it.tipo === 's') return 'Frase';
+  if (it.tipo === 'p') return it.zh.replace(/[，。？！、：；]/g,'').length <= 3 ? 'Expresión' : 'Frase';
+  return POS[it.zh] || 'Sustantivo';
+}
+
+const NIVELES = [...new Set(ITEMS.map(i=>i.niv))].sort();
+const TOTAL_HSK = {1:150,2:150,3:300,4:600,5:1300,6:2500};
+const TIPO = {w:"Palabra", p:"Frase corta", s:"Frase"};
+const PUNT = /[，。？！、：；]/;
+const limpio = s => s.replace(/[。？！]+$/,'');
+const D = 86400000, INT = [600000, D, 3*D, 7*D, 14*D, 30*D], DOM = 3, UNLOCK = 0.7;
+const KEY = 'hsk_v5';
+const SVG_SPK = (s,c)=>`<svg aria-hidden="true" width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="${c}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H3v6h3l5 4V5zM15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg>`;
+const SVG_SUN = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>';
+const SVG_MOON = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>';
+
+let st, retry=[], recent=[], actual=null, fmt='zh', rev=false, sesion=0, vista='estudio', filtro=3, busq='';
+
+// ---------- Tema ----------
+function temaActual(){ const t=document.documentElement.getAttribute('data-theme'); if(t) return t; return matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'; }
+function aplicarTema(t){ document.documentElement.setAttribute('data-theme',t); try{localStorage.setItem('hsk_tema',t);}catch(e){} document.getElementById('btnTema').innerHTML = t==='dark'?SVG_SUN:SVG_MOON; }
+function toggleTema(){ aplicarTema(temaActual()==='dark'?'light':'dark'); }
+try{ const t=localStorage.getItem('hsk_tema'); aplicarTema(t||temaActual()); }catch(e){ aplicarTema(temaActual()); }
+
+// ---------- Estado ----------
+function seed(){
+  st={items:{}}; const now=Date.now();
+  ITEMS.forEach(it=>{ const r=Math.random();
+    if(it.niv===1) st.items[it.id]={seen:true,streak:3,due:now+(r<0.25?-1:1)*Math.random()*14*D};
+    else if(it.niv===2) st.items[it.id]={seen:true,streak:r<0.8?3:2,due:now+(r<0.35?-1:1)*Math.random()*7*D};
+    else if(it.niv===3&&r<0.75) st.items[it.id]={seen:true,streak:r<0.3?2:1,due:now-Math.random()*2*D}; });
+  save();
+}
+function load(){ try{const s=localStorage.getItem(KEY); if(s) st=JSON.parse(s);}catch(e){} if(!st||!st.items) seed(); }
+function save(){ try{localStorage.setItem(KEY,JSON.stringify(st));}catch(e){} }
+const VERSION_APP = '1.0';
+function exportarDatos(){
+  const payload = {app:'curso-chino', version:VERSION_APP, fecha:new Date().toISOString(), estado:st, tema:(()=>{try{return localStorage.getItem('hsk_tema')}catch(e){return null}})(), voz:vozElegida};
+  return JSON.stringify(payload);
+}
+function nombreCopia(){ const d=new Date(); const p=n=>String(n).padStart(2,'0'); return `chino-copia-${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())}.json`; }
+async function guardarCopia(){
+  const json=exportarDatos(), nombre=nombreCopia();
+  const file=new File([json],nombre,{type:'application/json'});
+  try{
+    if(navigator.canShare && navigator.canShare({files:[file]})){ await navigator.share({files:[file],title:'Copia del progreso'}); aviso('Copia compartida. Guárdala en Archivos.'); return; }
+  }catch(e){ if(e && e.name==='AbortError') return; }
+  const url=URL.createObjectURL(file); const a=document.createElement('a'); a.href=url; a.download=nombre; document.body.appendChild(a); a.click(); setTimeout(()=>{URL.revokeObjectURL(url); a.remove();},1000);
+  aviso('Copia descargada.');
+}
+function cargarCopia(){ const inp=document.getElementById('archivoCopia'); if(inp){ inp.value=''; inp.click(); } }
+function leerCopia(inp){
+  const f=inp.files && inp.files[0]; if(!f) return;
+  const r=new FileReader();
+  r.onload=()=>{
+    try{
+      const d=JSON.parse(r.result);
+      if(!d || d.app!=='curso-chino' || !d.estado || !d.estado.items) throw new Error('formato');
+      const n=Object.keys(d.estado.items).length;
+      if(!confirm(`La copia es del ${new Date(d.fecha).toLocaleDateString('es-ES')} y contiene ${n} elementos. ¿Sustituir el progreso actual?`)) return;
+      st=d.estado; save();
+      try{ if(d.tema) localStorage.setItem('hsk_tema',d.tema); if(d.voz!==undefined) localStorage.setItem('hsk_voz',d.voz||''); }catch(e){}
+      retry=[]; recent=[]; siguiente(); irA('progreso'); aviso('Copia cargada correctamente.');
+    }catch(e){ alert('Ese archivo no es una copia válida de esta app.'); }
+  };
+  r.readAsText(f);
+}
+function aviso(t){ const el=document.getElementById('aviso'); if(!el) return; el.textContent=t; el.style.opacity=1; setTimeout(()=>{el.style.opacity=0;},2600); }
+function ultimaActividad(){ let m=0; for(const r of Object.values(st.items)){ if(r.due>m) m=r.due; } return m; }
+function reset(){ if(confirm('¿Seguro que quieres borrar todo el progreso?') && confirm('Esta acción no se puede deshacer. ¿Borrar?')){ seed(); retry=[]; recent=[]; sesion=0; siguiente(); irA('estudio'); } }
+
+const seen = it => st.items[it.id] && st.items[it.id].seen;
+const dominada = it => seen(it) && st.items[it.id].streak>=DOM;
+function progreso(n){ const its=ITEMS.filter(i=>i.niv===n); return its.filter(i=>seen(i)&&st.items[i.id].streak>=1).length/its.length; }
+function desbloqueado(n){ const i=NIVELES.indexOf(n); return i===0||progreso(NIVELES[i-1])>=UNLOCK; }
+function nivelActual(){ let a=NIVELES[0]; for(const n of NIVELES){ if(desbloqueado(n)) a=n; } return a; }
+function pendientes(){ const now=Date.now(); return ITEMS.filter(i=>seen(i)&&st.items[i.id].due<=now).length; }
+
+// ---------- Selección ----------
+function ponderado(p){ const t=p.reduce((a,x)=>a+x[1],0); let r=Math.random()*t; for(const x of p){ if((r-=x[1])<0) return x[0]; } return p[0][0]; }
+const rnd = a => a[Math.floor(Math.random()*a.length)];
+function elegir(){
+  retry.forEach(r=>r.after--);
+  const k=retry.findIndex(r=>r.after<=0);
+  if(k>=0) return ITEMS.find(i=>i.id===retry.splice(k,1)[0].id);
+  const now=Date.now(), act=nivelActual();
+  const abiertos=NIVELES.filter(n=>n<=act);
+  const lvl=ponderado(abiertos.map(n=>{const d=act-n; return [n,d===0?50:d===1?25:Math.max(8,25/d)];}));
+  const tipo=ponderado([['w',30],['p',35],['s',35]]);
+  const orden=[lvl,...abiertos.filter(x=>x!==lvl).reverse()];
+  const prefer=arr=>{const f=arr.filter(i=>i.tipo===tipo); return f.length?f:arr;};
+  for(const L of orden){
+    const pool=ITEMS.filter(i=>i.niv===L&&!recent.includes(i.id)&&!retry.some(r=>r.id===i.id));
+    const due=pool.filter(i=>seen(i)&&st.items[i.id].due<=now);
+    const nuevas=pool.filter(i=>!seen(i));
+    if(due.length&&(!nuevas.length||Math.random()<0.7)) return rnd(prefer(due).sort((a,b)=>st.items[a.id].due-st.items[b.id].due).slice(0,6));
+    if(nuevas.length){ const pal=nuevas.filter(i=>i.tipo==='w'), fr=nuevas.filter(i=>i.tipo!=='w'); if(pal.length&&(!fr.length||Math.random()<0.6)) return pal[0]; return (fr.length?fr:pal)[0]; }
+    const extra=pool.filter(seen).sort((a,b)=>st.items[a.id].due-st.items[b.id].due).slice(0,8);
+    if(extra.length) return rnd(prefer(extra));
+  }
+  return rnd(ITEMS);
+}
+function ejemplo(it){
+  if(it.tipo!=='w') return null;
+  const base=it.zh.replace(PUNT,'');
+  const c=ITEMS.filter(x=>x.tipo!=='w'&&x.niv<=it.niv&&x.zh.includes(base));
+  return c.length?rnd(c):null;
+}
+function siguiente(){
+  actual=elegir(); actual.ej=ejemplo(actual);
+  recent.push(actual.id); if(recent.length>8) recent.shift();
+  fmt=seen(actual)?rnd(['zh','es','audio']):'zh';
+  rev=false; render();
+  if(fmt==='audio') setTimeout(()=>hablar(actual.zh),300);
+}
+function revelar(){ rev=true; render(); }
+function marcar(ok){
+  const r=st.items[actual.id]||(st.items[actual.id]={streak:0,due:0,seen:false});
+  r.seen=true; sesion++;
+  if(ok){ r.streak++; r.due=Date.now()+INT[Math.min(r.streak-1,INT.length-1)]; }
+  else { r.streak=0; r.due=Date.now(); retry.push({id:actual.id,after:3}); }
+  save(); siguiente();
+}
+
+// ---------- Voz ----------
+let vozElegida=''; try{vozElegida=localStorage.getItem('hsk_voz')||'';}catch(e){}
+function vocesZh(){ return ('speechSynthesis' in window)?speechSynthesis.getVoices().filter(v=>/^zh([-_]|$)/i.test(v.lang)&&!/TW|HK|yue|cantonese/i.test(v.lang+v.name)):[]; }
+function calidad(v){ const n=(v.name||'').toLowerCase(); let s=0; if(/premium|enhanced|mejorada|neural|natural|wavenet/.test(n)) s+=10; if(/tingting|meijia|lili|yu-shu|xiaoxiao|yunxi|google|microsoft/.test(n)) s+=3; if(/compact|eloquence|espeak/.test(n)) s-=5; if(!v.localService) s+=1; return s; }
+function mejorVoz(){ const vs=vocesZh(); if(vozElegida){const v=vs.find(v=>v.voiceURI===vozElegida); if(v) return v;} return vs.sort((a,b)=>calidad(b)-calidad(a))[0]||null; }
+function setVoz(u){ vozElegida=u; try{localStorage.setItem('hsk_voz',u);}catch(e){} hablar('你好'); }
+function opcionesVoz(){ const vs=vocesZh().sort((a,b)=>calidad(b)-calidad(a)); return `<option value="">Voz automática${vs[0]?' · '+vs[0].name:''}</option>`+vs.map(v=>`<option value="${v.voiceURI}" ${v.voiceURI===vozElegida?'selected':''}>${v.name}${calidad(v)>=10?' ★':''}</option>`).join(''); }
+if('speechSynthesis' in window){ speechSynthesis.onvoiceschanged=()=>{ if(vista==='progreso') renderProgreso(); }; }
+function hablar(t){ if(!('speechSynthesis' in window)) return; const r=document.querySelector('.ring'); if(r){ r.classList.remove('on'); void r.offsetWidth; r.classList.add('on'); } speechSynthesis.cancel(); const u=new SpeechSynthesisUtterance(t.replace(PUNT,' ')); u.lang='zh-CN'; u.rate=0.82; const v=mejorVoz(); if(v) u.voice=v; speechSynthesis.speak(u); }
+
+// ---------- Vistas ----------
+const TITULOS={estudio:'Estudiar',vocab:'Vocabulario',progreso:'Progreso'};
+function irA(v){ vista=v; ['estudio','vocab','progreso'].forEach(x=>{ document.getElementById(x).classList.toggle('hidden',x!==v); document.getElementById('tab-'+x).classList.toggle('on',x===v); }); document.getElementById('acts').classList.toggle('hidden',v!=='estudio'); document.getElementById('titulo').textContent=TITULOS[v]; document.getElementById('main').scrollTop=0; render(); }
+function ruby(it,big,sm){ let k=0; return `<div class="ruby zhf ${big?'big':''} ${sm?'sm':''}">`+Array.from(limpio(it.zh)).map(c=>PUNT.test(c)?`<div class="c pt"><div class="h">${c}</div><div class="p"></div></div>`:`<div class="c"><div class="h">${c}</div><div class="p">${it.py[k++]||''}</div></div>`).join('')+'</div>'; }
+function dots(s){ let h='<div class="dots">'; for(let i=0;i<DOM;i++) h+=`<span class="${i<s?'on':''}"></span>`; return h+'</div>'; }
+
+function render(){ if(vista==='estudio') renderEstudio(); else if(vista==='vocab') renderVocab(); else renderProgreso(); }
+
+function renderEstudio(){
+  const e=document.getElementById('estudio'), a=document.getElementById('acts');
+  const r=st.items[actual.id], nueva=!(r&&r.seen);
+  const cat=categoria(actual);
+  const pills=`<div style="display:flex;gap:8px"><span class="pill g">${cat}</span></div>`;
+  if(!rev){
+    let cuerpo='';
+    if(fmt==='zh') cuerpo=`<div class="zh zhf">${limpio(actual.zh)}</div>`;
+    if(fmt==='es') cuerpo=`<div class="es">${actual.es}</div>`;
+    if(fmt==='audio') cuerpo=`<div class="ring"><button class="spk" aria-label="Reproducir" onclick="hablar(actual.zh)">${SVG_SPK(52,'#fff')}</button></div>`;
+    e.innerHTML=`<div class="q">${cuerpo}</div><div class="acc"><button class="btn neu" onclick="revelar()">Ver respuesta</button></div>`;
+    a.innerHTML='';
+  } else {
+    const ej=actual.ej?`<div class="sep"></div><div class="ej"><span class="lbl">En una frase</span>${ruby(actual.ej,false,true)}<div class="e">${actual.ej.es}</div></div>`:'';
+    e.innerHTML=`<div class="card">${pills}${ruby(actual,actual.tipo==='w'&&actual.zh.length<=3)}<div class="trad">${actual.es}</div>${ej}<button class="lst" onclick="hablar(actual.zh)">${SVG_SPK(18,'currentColor')}Escuchar</button></div><div class="acc"><button class="btn" onclick="marcar(false)">No lo sabía</button><button class="btn ok" onclick="marcar(true)">Lo sabía</button></div>`;
+    a.innerHTML='';
+  }
+}
+function setFiltro(n){ filtro=n; renderVocab(); }
+function setBusq(v){ busq=v.trim().toLowerCase(); renderVocabLista(); }
+function renderVocab(){
+  const v=document.getElementById('vocab');
+  v.innerHTML=`<div class="chips">${[1,2,3,4,5,6].map(n=>{const ex=NIVELES.includes(n), ok=ex&&desbloqueado(n); return `<button class="chip ${n===filtro?'on':''} ${ok?'':'lock'}" onclick="setFiltro(${n})">HSK ${n}</button>`;}).join('')}</div>
+    <label class="search"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="color:var(--muted)"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input type="search" placeholder="Buscar en chino, pinyin o español" value="${busq}" oninput="setBusq(this.value)"></label>
+    <div class="meta" id="vmeta"></div><div class="list" id="vlista"></div>`;
+  renderVocabLista();
+}
+function renderVocabLista(){
+  let its=ITEMS.filter(i=>i.niv===filtro);
+  const total=its.length;
+  if(busq) its=its.filter(i=>i.zh.includes(busq)||i.py.join(' ').toLowerCase().includes(busq)||i.es.toLowerCase().includes(busq));
+  const dom=ITEMS.filter(i=>i.niv===filtro&&dominada(i)).length;
+  const meta=document.getElementById('vmeta'), l=document.getElementById('vlista');
+  if(!total){ meta.innerHTML=`<span>Este nivel todavía no está cargado</span>`; l.innerHTML=''; return; }
+  meta.innerHTML=`<span>${total} elementos · <b>${dom}</b> dominados</span><span>${desbloqueado(filtro)?'<b>'+Math.round(progreso(filtro)*100)+' %</b>':'🔒 al 70 % del anterior'}</span>`;
+  l.innerHTML=its.slice(0,400).map(i=>{const r=st.items[i.id]; const d=!(r&&r.seen)?'n':(r.streak>=DOM?'d':'a'); return `<div class="it"><div><div class="z zhf">${limpio(i.zh)}</div><div class="p">${i.py.join(' ')}</div><div class="e">${i.es} · <span style="color:var(--dim)">${categoria(i)}</span></div></div><span class="dot ${d}"></span></div>`;}).join('')||'<div class="it"><div class="e">Sin resultados</div></div>';
+}
+function renderProgreso(){
+  const p=document.getElementById('progreso');
+  const domTot=ITEMS.filter(i=>i.tipo==='w'&&dominada(i)).length;
+  const bars=[1,2,3,4,5,6].map(n=>{const its=ITEMS.filter(i=>i.niv===n&&i.tipo==='w'); const d=its.filter(dominada).length; const tot=TOTAL_HSK[n]; const off=!its.length||!desbloqueado(n); return `<div class="lvl ${off?'off':''}"><span class="n">HSK ${n}</span><div class="bar"><div style="width:${tot?Math.round(d/tot*100):0}%"></div></div><span class="v">${d}</span></div>`;}).join('');
+  p.innerHTML=`<div class="pc"><span class="lbl">Vocabulario dominado</span><div class="bigN"><b>${domTot}</b><span>de 5 000 palabras</span></div><div class="bar" style="height:8px;flex:none"><div style="width:${Math.round(domTot/50)}%"></div></div></div>
+    <div class="pc"><span style="font-size:16px;font-weight:700">Por nivel</span>${bars}</div>
+    <div class="pc rowc"><div><div class="t">Pendientes de repaso</div><div class="s">${pendientes()} tarjetas esperan · ${sesion} hechas hoy</div></div><span class="k zhf">复习</span></div>
+    <div class="pc"><span class="lbl">Audio</span><select class="voz" onchange="setVoz(this.value)">${opcionesVoz()}</select><span class="small">★ = voz de alta calidad. Si no ves ninguna, descarga una voz china «mejorada» en los ajustes de accesibilidad del móvil.</span></div>
+    <div class="pc"><span class="lbl">Copia de seguridad</span>
+      <span class="small">El progreso se guarda en este iPhone. Guarda una copia de vez en cuando en Archivos o iCloud Drive.</span>
+      <div style="display:flex;gap:10px"><button class="btn neu" style="height:48px;font-size:15px" onclick="guardarCopia()">Guardar copia</button><button class="btn neu" style="height:48px;font-size:15px;background:var(--card2);color:var(--text)" onclick="cargarCopia()">Cargar copia</button></div>
+      <input type="file" id="archivoCopia" accept=".json,application/json" class="hidden" onchange="leerCopia(this)">
+      <span class="small" id="aviso" style="transition:opacity .4s;opacity:0;min-height:16px"></span>
+    </div>
+    <div class="pc"><span class="lbl">Datos</span><button class="link" onclick="reset()">Borrar todo el progreso</button></div>`;
+}
+load(); siguiente(); irA('estudio');
+if('serviceWorker' in navigator){ window.addEventListener('load',()=>{ navigator.serviceWorker.register('sw.js').catch(()=>{}); }); }
+</script>
+</body>
+</html>
