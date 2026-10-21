@@ -1,2 +1,2 @@
 # appchino
-Curso chino rollo 8belts
+Curso estudiar chino sencillo
