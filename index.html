@@ -38,7 +38,7 @@ button.pressed{transform:scale(.94);opacity:.85;filter:brightness(1.15)}
 .zhf{font-family:'Noto Sans SC','PingFang SC',system-ui,sans-serif}
 .app{height:100%;display:flex;flex-direction:column;max-width:520px;margin:0 auto}
 .hdr{flex:none;padding:max(calc(env(safe-area-inset-top,0px) + 14px),64px) 20px 12px;display:grid;grid-template-columns:40px 1fr 40px;align-items:center;border-bottom:1px solid var(--line)}
-.hdr h1{margin:0;font-size:22px;font-weight:800;letter-spacing:-.01em;text-align:center}
+.hdr h1{margin:0;font-size:22px;font-weight:800;letter-spacing:-.01em;text-align:center;grid-column:2}
 .hdr .ic{grid-column:3}
 .ic{width:40px;height:40px;border-radius:20px;border:0;background:var(--card2);color:var(--text);display:flex;align-items:center;justify-content:center;cursor:pointer}
 .main{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:6px 20px 12px;display:flex;flex-direction:column}
@@ -1002,7 +1002,360 @@ const DATA = `1|w|我|wǒ|yo
 4|s|他邀请我参加聚会。|tā yāo qǐng wǒ cān jiā jù huì|Me ha invitado a la fiesta.|Citas
 4|s|今天的交通很堵。|jīn tiān de jiāo tōng hěn dǔ|Hoy hay mucho tráfico.|Viajes
 4|s|我需要办签证。|wǒ xū yào bàn qiān zhèng|Necesito tramitar el visado.|Viajes
-4|s|这个月的工资涨了。|zhè ge yuè de gōng zī zhǎng le|El sueldo de este mes ha subido.|Trabajo`;
+4|s|这个月的工资涨了。|zhè ge yuè de gōng zī zhǎng le|El sueldo de este mes ha subido.|Trabajo
+1|s|她是我妈妈。|tā shì wǒ mā ma|Ella es mi madre.|Conversación
+1|s|那是我的书。|nà shì wǒ de shū|Ese es mi libro.|Conversación
+1|s|我有两个儿子。|wǒ yǒu liǎng ge ér zi|Tengo dos hijos.|Conversación
+1|s|他今年三十岁。|tā jīn nián sān shí suì|Él tiene treinta años.|Conversación
+1|s|我买了四个苹果。|wǒ mǎi le sì ge píng guǒ|He comprado cuatro manzanas.|Comida
+1|s|我们五点见。|wǒ men wǔ diǎn jiàn|Nos vemos a las cinco.|Citas
+1|s|六月天气很热。|liù yuè tiān qì hěn rè|En junio hace mucho calor.|Conversación
+1|s|一个星期有七天。|yí ge xīng qī yǒu qī tiān|Una semana tiene siete días.|Conversación
+1|s|我八点上班。|wǒ bā diǎn shàng bān|Entro a trabajar a las ocho.|Trabajo
+1|s|现在九点了。|xiàn zài jiǔ diǎn le|Ya son las nueve.|Conversación
+1|s|这本书十块钱。|zhè běn shū shí kuài qián|Este libro cuesta diez yuanes.|Comida
+1|s|你多大了？我二十岁。|nǐ duō dà le wǒ èr shí suì|¿Cuántos años tienes? Tengo veinte.|Conversación
+1|s|我买了一些水果。|wǒ mǎi le yì xiē shuǐ guǒ|He comprado algo de fruta.|Comida
+1|s|我和朋友去商店。|wǒ hé péng you qù shāng diàn|Voy a la tienda con un amigo.|Conversación
+1|s|我很好，你呢？|wǒ hěn hǎo nǐ ne|Estoy bien, ¿y tú?|Conversación
+1|s|书在桌子上。|shū zài zhuō zi shang|El libro está sobre la mesa.|Conversación
+1|s|医院在前面。|yī yuàn zài qián miàn|El hospital está delante.|Viajes
+1|s|学校在后面。|xué xiào zài hòu miàn|La escuela está detrás.|Viajes
+1|s|猫在家里。|māo zài jiā lǐ|El gato está en casa.|Conversación
+1|s|我上午工作。|wǒ shàng wǔ gōng zuò|Trabajo por la mañana.|Trabajo
+1|s|中午我们吃米饭。|zhōng wǔ wǒ men chī mǐ fàn|Al mediodía comemos arroz.|Comida
+1|s|今天是几月几号？|jīn tiān shì jǐ yuè jǐ hào|¿Qué día es hoy?|Conversación
+1|s|我今年去中国。|wǒ jīn nián qù Zhōng guó|Este año voy a China.|Viajes
+1|s|等我五分钟。|děng wǒ wǔ fēn zhōng|Espérame cinco minutos.|Conversación
+1|s|你什么时候来？|nǐ shén me shí hou lái|¿Cuándo vienes?|Citas
+1|s|我爸爸是老师。|wǒ bà ba shì lǎo shī|Mi padre es profesor.|Conversación
+1|s|王先生，你好。|Wáng xiān sheng nǐ hǎo|Señor Wang, hola.|Trabajo
+1|s|李小姐在哪儿？|Lǐ xiǎo jiě zài nǎ r|¿Dónde está la señorita Li?|Trabajo
+1|s|这件衣服很漂亮。|zhè jiàn yī fu hěn piào liang|Esta ropa es muy bonita.|Comida
+1|s|这个菜很好吃。|zhè ge cài hěn hǎo chī|Este plato está muy rico.|Comida
+1|s|我喜欢吃水果。|wǒ xǐ huan chī shuǐ guǒ|Me gusta comer fruta.|Comida
+1|s|请给我一个杯子。|qǐng gěi wǒ yí ge bēi zi|Deme un vaso, por favor.|Comida
+1|s|我坐飞机去北京。|wǒ zuò fēi jī qù Běi jīng|Voy a Pekín en avión.|Viajes
+1|s|我的电脑很新。|wǒ de diàn nǎo hěn xīn|Mi ordenador es muy nuevo.|Conversación
+1|s|他有一只小狗。|tā yǒu yì zhī xiǎo gǒu|Él tiene un perrito.|Conversación
+1|s|你想买什么东西？|nǐ xiǎng mǎi shén me dōng xi|¿Qué quieres comprar?|Comida
+1|s|那个人是谁？|nà ge rén shì shéi|¿Quién es esa persona?|Conversación
+1|s|请坐在椅子上。|qǐng zuò zài yǐ zi shang|Siéntate en la silla, por favor.|Conversación
+1|s|我喜欢听音乐。|wǒ xǐ huan tīng yīn yuè|Me gusta escuchar música.|Citas
+1|s|我会写汉字。|wǒ huì xiě Hàn zì|Sé escribir caracteres chinos.|Conversación
+1|s|我看见你的猫了。|wǒ kàn jiàn nǐ de māo le|He visto tu gato.|Conversación
+1|s|你明天来我家吧。|nǐ míng tiān lái wǒ jiā ba|Ven mañana a mi casa.|Citas
+1|s|我晚上回家。|wǒ wǎn shang huí jiā|Vuelvo a casa por la noche.|Conversación
+1|s|我想睡觉了。|wǒ xiǎng shuì jiào le|Quiero dormir ya.|Conversación
+1|s|我给你打电话。|wǒ gěi nǐ dǎ diàn huà|Te llamo por teléfono.|Citas
+1|s|你在做什么？|nǐ zài zuò shén me|¿Qué estás haciendo?|Conversación
+1|s|请开门。|qǐng kāi mén|Abre la puerta, por favor.|Conversación
+1|s|今天下雨了。|jīn tiān xià yǔ le|Hoy ha llovido.|Conversación
+1|s|我爱我的家人。|wǒ ài wǒ de jiā rén|Quiero a mi familia.|Conversación
+1|s|这个苹果很大。|zhè ge píng guǒ hěn dà|Esta manzana es muy grande.|Comida
+1|s|我家很小。|wǒ jiā hěn xiǎo|Mi casa es muy pequeña.|Conversación
+1|s|今天太热了。|jīn tiān tài rè le|Hoy hace demasiado calor.|Conversación
+2|s|它是我的猫。|tā shì wǒ de māo|Es mi gato.|Conversación
+2|s|大家好！|dà jiā hǎo|¡Hola a todos!|Conversación
+2|s|我的电话是一三零。|wǒ de diàn huà shì yāo sān líng|Mi teléfono empieza por 130.|Conversación
+2|s|这件衣服一百块。|zhè jiàn yī fu yì bǎi kuài|Esta prenda cuesta cien yuanes.|Comida
+2|s|这里有一千本书。|zhè lǐ yǒu yì qiān běn shū|Aquí hay mil libros.|Conversación
+2|s|这是我第一次来。|zhè shì wǒ dì yī cì lái|Es la primera vez que vengo.|Viajes
+2|s|我去过两次北京。|wǒ qù guo liǎng cì Běi jīng|He estado dos veces en Pekín.|Viajes
+2|s|你还想吃什么？|nǐ hái xiǎng chī shén me|¿Qué más quieres comer?|Comida
+2|s|我最喜欢这个。|wǒ zuì xǐ huan zhè ge|Este es el que más me gusta.|Comida
+2|s|我吃完就走。|wǒ chī wán jiù zǒu|En cuanto termine de comer me voy.|Conversación
+2|s|往前走就到了。|wǎng qián zǒu jiù dào le|Sigue recto y llegas.|Viajes
+2|s|他在教室里。|tā zài jiào shì lǐ|Él está en el aula.|Conversación
+2|s|这条路很长。|zhè tiáo lù hěn cháng|Esta calle es muy larga.|Viajes
+2|s|商店在右边。|shāng diàn zài yòu bian|La tienda está a la derecha.|Viajes
+2|s|他在门外等你。|tā zài mén wài děng nǐ|Te espera fuera, en la puerta.|Citas
+2|s|医院在学校旁边。|yī yuàn zài xué xiào páng biān|El hospital está al lado de la escuela.|Viajes
+2|s|我等了一个小时。|wǒ děng le yí ge xiǎo shí|He esperado una hora.|Conversación
+2|s|去年我去了中国。|qù nián wǒ qù le Zhōng guó|El año pasado fui a China.|Viajes
+2|s|我哥哥很高。|wǒ gē ge hěn gāo|Mi hermano mayor es muy alto.|Conversación
+2|s|我弟弟十岁。|wǒ dì di shí suì|Mi hermano pequeño tiene diez años.|Conversación
+2|s|我妹妹很漂亮。|wǒ mèi mei hěn piào liang|Mi hermana pequeña es muy guapa.|Conversación
+2|s|她丈夫是医生。|tā zhàng fu shì yī shēng|Su marido es médico.|Conversación
+2|s|这是我妻子。|zhè shì wǒ qī zi|Esta es mi mujer.|Conversación
+2|s|孩子们在玩。|hái zi men zài wán|Los niños están jugando.|Conversación
+2|s|那个男人是谁？|nà ge nán rén shì shéi|¿Quién es ese hombre?|Conversación
+2|s|那个女人很忙。|nà ge nǚ rén hěn máng|Esa mujer está muy ocupada.|Conversación
+2|s|服务员，买单！|fú wù yuán mǎi dān|¡Camarero, la cuenta!|Comida
+2|s|我想吃鱼。|wǒ xiǎng chī yú|Quiero comer pescado.|Comida
+2|s|我不吃羊肉。|wǒ bù chī yáng ròu|No como cordero.|Comida
+2|s|我早上吃鸡蛋。|wǒ zǎo shang chī jī dàn|Por la mañana como huevos.|Comida
+2|s|夏天我吃西瓜。|xià tiān wǒ chī xī guā|En verano como sandía.|Comida
+2|s|我的手表很贵。|wǒ de shǒu biǎo hěn guì|Mi reloj es muy caro.|Conversación
+2|s|她的眼睛很漂亮。|tā de yǎn jing hěn piào liang|Sus ojos son muy bonitos.|Citas
+2|s|你身体好吗？|nǐ shēn tǐ hǎo ma|¿Estás bien de salud?|Conversación
+2|s|我坐公共汽车上班。|wǒ zuò gōng gòng qì chē shàng bān|Voy a trabajar en autobús.|Trabajo
+2|s|爸爸在看报纸。|bà ba zài kàn bào zhǐ|Papá está leyendo el periódico.|Conversación
+2|s|请关门。|qǐng guān mén|Cierra la puerta, por favor.|Conversación
+2|s|我们今天有课。|wǒ men jīn tiān yǒu kè|Hoy tenemos clase.|Conversación
+2|s|您贵姓？|nín guì xìng|¿Cuál es su apellido?|Trabajo
+2|s|我有事情要做。|wǒ yǒu shì qing yào zuò|Tengo cosas que hacer.|Trabajo
+2|s|我买了两张票。|wǒ mǎi le liǎng zhāng piào|He comprado dos entradas.|Citas
+2|s|请给我一支铅笔。|qǐng gěi wǒ yì zhī qiān bǐ|Dame un lápiz, por favor.|Conversación
+2|s|我想吃面条。|wǒ xiǎng chī miàn tiáo|Quiero comer fideos.|Comida
+2|s|这里卖水果。|zhè lǐ mài shuǐ guǒ|Aquí venden fruta.|Comida
+2|s|请进！|qǐng jìn|¡Pasa, por favor!|Conversación
+2|s|今天我穿新衣服。|jīn tiān wǒ chuān xīn yī fu|Hoy llevo ropa nueva.|Citas
+2|s|我在洗衣服。|wǒ zài xǐ yī fu|Estoy lavando la ropa.|Conversación
+2|s|她笑了。|tā xiào le|Ella sonrió.|Citas
+2|s|请告诉我你的名字。|qǐng gào su wǒ nǐ de míng zi|Dime tu nombre, por favor.|Conversación
+2|s|我们开始吧。|wǒ men kāi shǐ ba|Empecemos.|Trabajo
+2|s|周末我想出去玩。|zhōu mò wǒ xiǎng chū qù wán|El fin de semana quiero salir.|Citas
+2|s|我送你回家。|wǒ sòng nǐ huí jiā|Te acompaño a casa.|Citas
+2|s|你喜欢跳舞吗？|nǐ xǐ huan tiào wǔ ma|¿Te gusta bailar?|Citas
+2|s|你休息一下吧。|nǐ xiū xi yí xià ba|Descansa un poco.|Conversación
+2|s|我每天运动。|wǒ měi tiān yùn dòng|Hago deporte cada día.|Conversación
+2|s|我们去游泳吧。|wǒ men qù yóu yǒng ba|Vamos a nadar.|Citas
+2|s|他喜欢踢足球。|tā xǐ huan tī zú qiú|A él le gusta jugar al fútbol.|Conversación
+2|s|周末我打篮球。|zhōu mò wǒ dǎ lán qiú|El fin de semana juego al baloncesto.|Conversación
+2|s|我做完了。|wǒ zuò wán le|Ya he terminado.|Trabajo
+2|s|明天可能下雨。|míng tiān kě néng xià yǔ|Mañana quizás llueva.|Conversación
+2|s|我喜欢红色。|wǒ xǐ huan hóng sè|Me gusta el rojo.|Conversación
+2|s|这件衣服是白色的。|zhè jiàn yī fu shì bái sè de|Esta prenda es blanca.|Comida
+2|s|我有一只黑猫。|wǒ yǒu yì zhī hēi māo|Tengo un gato negro.|Conversación
+2|s|我今天很忙。|wǒ jīn tiān hěn máng|Hoy estoy muy ocupado.|Trabajo
+2|s|我家离公司很近。|wǒ jiā lí gōng sī hěn jìn|Mi casa está cerca de la empresa.|Trabajo
+2|s|这个很便宜。|zhè ge hěn pián yi|Esto es muy barato.|Comida
+2|s|今天是晴天。|jīn tiān shì qíng tiān|Hoy está despejado.|Conversación
+2|s|今天是阴天。|jīn tiān shì yīn tiān|Hoy está nublado.|Conversación
+2|s|对不起，我错了。|duì bu qǐ wǒ cuò le|Lo siento, me he equivocado.|Conversación
+3|s|阿姨，这个多少钱？|ā yí zhè ge duō shao qián|Señora, ¿cuánto cuesta esto?|Comida
+3|s|啊，我忘了！|a wǒ wàng le|¡Ah, se me olvidó!|Conversación
+3|s|他比我矮。|tā bǐ wǒ ǎi|Él es más bajo que yo.|Conversación
+3|s|你有什么爱好？|nǐ yǒu shén me ài hào|¿Qué aficiones tienes?|Citas
+3|s|我们三点半见面。|wǒ men sān diǎn bàn jiàn miàn|Nos vemos a las tres y media.|Citas
+3|s|经理在办公室。|jīng lǐ zài bàn gōng shì|El gerente está en la oficina.|Trabajo
+3|s|这个包是我的。|zhè ge bāo shì wǒ de|Este bolso es mío.|Conversación
+3|s|我吃饱了，谢谢。|wǒ chī bǎo le xiè xie|Estoy lleno, gracias.|Comida
+3|s|北方的冬天很冷。|běi fāng de dōng tiān hěn lěng|En el norte el invierno es muy frío.|Viajes
+3|s|我的手机被他拿走了。|wǒ de shǒu jī bèi tā ná zǒu le|Él se llevó mi móvil.|Conversación
+3|s|他的鼻子很高。|tā de bí zi hěn gāo|Tiene la nariz prominente.|Conversación
+3|s|这个比较贵。|zhè ge bǐ jiào guì|Esto es bastante caro.|Comida
+3|s|今天晚上有比赛。|jīn tiān wǎn shang yǒu bǐ sài|Esta noche hay partido.|Conversación
+3|s|我的笔记本在哪儿？|wǒ de bǐ jì běn zài nǎ r|¿Dónde está mi cuaderno?|Trabajo
+3|s|这里变化很大。|zhè lǐ biàn huà hěn dà|Aquí ha cambiado mucho.|Conversación
+3|s|别人都走了。|bié ren dōu zǒu le|Los demás ya se han ido.|Conversación
+3|s|牛奶在冰箱里。|niú nǎi zài bīng xiāng lǐ|La leche está en la nevera.|Comida
+3|s|你参加吗？|nǐ cān jiā ma|¿Participas?|Trabajo
+3|s|草是绿色的。|cǎo shì lǜ sè de|La hierba es verde.|Conversación
+3|s|我住在五层。|wǒ zhù zài wǔ céng|Vivo en el quinto piso.|Conversación
+3|s|我的成绩很差。|wǒ de chéng jì hěn chà|Mis notas son muy malas.|Conversación
+3|s|超市几点关门？|chāo shì jǐ diǎn guān mén|¿A qué hora cierra el supermercado?|Comida
+3|s|这件衬衫很好看。|zhè jiàn chèn shān hěn hǎo kàn|Esta camisa es muy bonita.|Citas
+3|s|春天花都开了。|chūn tiān huā dōu kāi le|En primavera florece todo.|Conversación
+3|s|请借我你的词典。|qǐng jiè wǒ nǐ de cí diǎn|Préstame tu diccionario, por favor.|Conversación
+3|s|她很聪明。|tā hěn cōng ming|Ella es muy inteligente.|Citas
+3|s|我周末打扫房间。|wǒ zhōu mò dǎ sǎo fáng jiān|El fin de semana limpio la habitación.|Conversación
+3|s|我买了一个蛋糕。|wǒ mǎi le yí ge dàn gāo|He comprado una tarta.|Comida
+3|s|请开灯。|qǐng kāi dēng|Enciende la luz, por favor.|Conversación
+3|s|这个地方很漂亮。|zhè ge dì fang hěn piào liang|Este lugar es muy bonito.|Viajes
+3|s|我看不懂地图。|wǒ kàn bu dǒng dì tú|No entiendo el mapa.|Viajes
+3|s|电梯坏了。|diàn tī huài le|El ascensor está estropeado.|Trabajo
+3|s|我给你发电子邮件。|wǒ gěi nǐ fā diàn zǐ yóu jiàn|Te envío un correo electrónico.|Trabajo
+3|s|太阳从东边出来。|tài yáng cóng dōng bian chū lái|El sol sale por el este.|Conversación
+3|s|冬天我喜欢喝茶。|dōng tiān wǒ xǐ huan hē chá|En invierno me gusta beber té.|Comida
+3|s|你喜欢什么动物？|nǐ xǐ huan shén me dòng wù|¿Qué animal te gusta?|Citas
+3|s|她的头发很短。|tā de tóu fa hěn duǎn|Tiene el pelo corto.|Conversación
+3|s|这段时间我很忙。|zhè duàn shí jiān wǒ hěn máng|Esta temporada estoy muy ocupado.|Trabajo
+3|s|我每天锻炼身体。|wǒ měi tiān duàn liàn shēn tǐ|Hago ejercicio cada día.|Conversación
+3|s|这个地方多么漂亮啊！|zhè ge dì fang duō me piào liang a|¡Qué bonito es este lugar!|Viajes
+3|s|他不但聪明，而且努力。|tā bú dàn cōng ming ér qiě nǔ lì|No solo es inteligente, sino también trabajador.|Conversación
+3|s|我的耳朵疼。|wǒ de ěr duo téng|Me duele el oído.|Conversación
+3|s|我发烧了，想请假。|wǒ fā shāo le xiǎng qǐng jià|Tengo fiebre y quiero pedir el día libre.|Trabajo
+3|s|我发现了一个好地方。|wǒ fā xiàn le yí ge hǎo dì fang|He descubierto un sitio estupendo.|Viajes
+3|s|坐地铁很方便。|zuò dì tiě hěn fāng biàn|Ir en metro es muy práctico.|Viajes
+3|s|现在三点十分。|xiàn zài sān diǎn shí fēn|Son las tres y diez.|Conversación
+3|s|考试前我要复习。|kǎo shì qián wǒ yào fù xí|Antes del examen tengo que repasar.|Conversación
+3|s|这个房间很干净。|zhè ge fáng jiān hěn gān jìng|Esta habitación está muy limpia.|Viajes
+3|s|我感冒了。|wǒ gǎn mào le|Me he resfriado.|Conversación
+3|s|他刚才还在这儿。|tā gāng cái hái zài zhè r|Hace un momento aún estaba aquí.|Conversación
+3|s|他个子很高。|tā gè zi hěn gāo|Es muy alto de estatura.|Conversación
+3|s|我跟你一起去。|wǒ gēn nǐ yì qǐ qù|Voy contigo.|Citas
+3|s|根据天气，明天会下雨。|gēn jù tiān qì míng tiān huì xià yǔ|Según el tiempo, mañana lloverá.|Conversación
+3|s|今天比昨天更冷。|jīn tiān bǐ zuó tiān gèng lěng|Hoy hace aún más frío que ayer.|Conversación
+3|s|我要两公斤苹果。|wǒ yào liǎng gōng jīn píng guǒ|Quiero dos kilos de manzanas.|Comida
+3|s|我们去公园散散步。|wǒ men qù gōng yuán sàn san bù|Vamos a dar un paseo por el parque.|Citas
+3|s|今天刮风了。|jīn tiān guā fēng le|Hoy hace viento.|Conversación
+3|s|谢谢你关心我。|xiè xie nǐ guān xīn wǒ|Gracias por preocuparte por mí.|Citas
+3|s|你去过哪些国家？|nǐ qù guo nǎ xiē guó jiā|¿Qué países has visitado?|Viajes
+3|s|过去我住在北京。|guò qù wǒ zhù zài Běi jīng|Antes vivía en Pekín.|Conversación
+3|s|别害怕，有我在。|bié hài pà yǒu wǒ zài|No tengas miedo, estoy aquí.|Citas
+3|s|老师在黑板上写字。|lǎo shī zài hēi bǎn shang xiě zì|El profesor escribe en la pizarra.|Conversación
+3|s|后来我们成了朋友。|hòu lái wǒ men chéng le péng you|Después nos hicimos amigos.|Citas
+3|s|我花了很多钱。|wǒ huā le hěn duō qián|He gastado mucho dinero.|Comida
+3|s|她画得很好。|tā huà de hěn hǎo|Ella dibuja muy bien.|Conversación
+3|s|天气太坏了。|tiān qì tài huài le|Hace un tiempo horrible.|Conversación
+3|s|欢迎来我家！|huān yíng lái wǒ jiā|¡Bienvenido a mi casa!|Conversación
+3|s|黄河很长。|Huáng Hé hěn cháng|El río Amarillo es muy largo.|Viajes
+3|s|请回答我的问题。|qǐng huí dá wǒ de wèn tí|Responde a mi pregunta, por favor.|Trabajo
+3|s|你喝茶或者咖啡？|nǐ hē chá huò zhě kā fēi|¿Tomas té o café?|Comida
+3|s|我几乎每天都来。|wǒ jī hū měi tiān dōu lái|Vengo casi todos los días.|Conversación
+3|s|这是一个好机会。|zhè shì yí ge hǎo jī huì|Es una buena oportunidad.|Trabajo
+3|s|这个菜好吃极了。|zhè ge cài hǎo chī jí le|Este plato está buenísimo.|Comida
+3|s|我记得你的名字。|wǒ jì de nǐ de míng zi|Me acuerdo de tu nombre.|Citas
+3|s|你最喜欢哪个季节？|nǐ zuì xǐ huan nǎ ge jì jié|¿Qué estación del año te gusta más?|Citas
+3|s|健康最重要。|jiàn kāng zuì zhòng yào|La salud es lo más importante.|Conversación
+3|s|她教我中文。|tā jiāo wǒ Zhōng wén|Ella me enseña chino.|Conversación
+3|s|三块五角。|sān kuài wǔ jiǎo|Tres yuanes con cincuenta.|Comida
+3|s|我的脚很疼。|wǒ de jiǎo hěn téng|Me duele mucho el pie.|Conversación
+3|s|我去机场接你。|wǒ qù jī chǎng jiē nǐ|Voy a recogerte al aeropuerto.|Viajes
+3|s|这条街道很安静。|zhè tiáo jiē dào hěn ān jìng|Esta calle es muy tranquila.|Viajes
+3|s|他们明年结婚。|tā men míng nián jié hūn|Se casan el año que viene.|Citas
+3|s|这个节目很有意思。|zhè ge jié mù hěn yǒu yì si|Este programa es muy interesante.|Conversación
+3|s|节日快乐！|jié rì kuài lè|¡Felices fiestas!|Conversación
+3|s|我们一起解决问题。|wǒ men yì qǐ jiě jué wèn tí|Resolvamos el problema juntos.|Trabajo
+3|s|这辆车太旧了。|zhè liàng chē tài jiù le|Este coche es demasiado viejo.|Conversación
+3|s|请读这个句子。|qǐng dú zhè ge jù zi|Lee esta frase, por favor.|Conversación
+3|s|我渴了，想喝水。|wǒ kě le xiǎng hē shuǐ|Tengo sed, quiero beber agua.|Comida
+3|s|这只小狗真可爱。|zhè zhī xiǎo gǒu zhēn kě ài|Este perrito es adorable.|Conversación
+3|s|现在三点一刻。|xiàn zài sān diǎn yí kè|Son las tres y cuarto.|Conversación
+3|s|今天家里有客人。|jīn tiān jiā lǐ yǒu kè rén|Hoy tenemos invitados en casa.|Conversación
+3|s|请打开空调。|qǐng dǎ kāi kōng tiáo|Enciende el aire acondicionado, por favor.|Viajes
+3|s|我家有三口人。|wǒ jiā yǒu sān kǒu rén|En mi familia somos tres.|Conversación
+3|s|这条裤子太长了。|zhè tiáo kù zi tài cháng le|Estos pantalones son demasiado largos.|Comida
+3|s|你会用筷子吗？|nǐ huì yòng kuài zi ma|¿Sabes usar palillos?|Comida
+3|s|天空是蓝色的。|tiān kōng shì lán sè de|El cielo es azul.|Conversación
+3|s|他明天离开北京。|tā míng tiān lí kāi Běi jīng|Mañana se marcha de Pekín.|Viajes
+3|s|这是给你的礼物。|zhè shì gěi nǐ de lǐ wù|Este regalo es para ti.|Citas
+3|s|我喜欢中国历史。|wǒ xǐ huan Zhōng guó lì shǐ|Me gusta la historia de China.|Conversación
+3|s|她的脸红了。|tā de liǎn hóng le|Se le puso la cara roja.|Citas
+3|s|我每天练习说中文。|wǒ měi tiān liàn xí shuō Zhōng wén|Practico hablar chino cada día.|Conversación
+3|s|我买了一辆自行车。|wǒ mǎi le yí liàng zì xíng chē|Me he comprado una bicicleta.|Conversación
+3|s|我很了解他。|wǒ hěn liǎo jiě tā|Lo conozco muy bien.|Citas
+3|s|我的邻居很热情。|wǒ de lín jū hěn rè qíng|Mis vecinos son muy amables.|Conversación
+3|s|我住在这栋楼。|wǒ zhù zài zhè dòng lóu|Vivo en este edificio.|Conversación
+3|s|我喜欢绿色。|wǒ xǐ huan lǜ sè|Me gusta el verde.|Conversación
+3|s|天冷了，戴帽子吧。|tiān lěng le dài mào zi ba|Hace frío, ponte el gorro.|Conversación
+3|s|他跑了一千米。|tā pǎo le yì qiān mǐ|Corrió mil metros.|Conversación
+3|s|早上我吃面包。|zǎo shang wǒ chī miàn bāo|Por la mañana como pan.|Comida
+3|s|请拿好你的东西。|qǐng ná hǎo nǐ de dōng xi|Coge bien tus cosas.|Viajes
+3|s|我奶奶八十岁了。|wǒ nǎi nai bā shí suì le|Mi abuela tiene ochenta años.|Conversación
+3|s|南方夏天很热。|nán fāng xià tiān hěn rè|En el sur el verano es muy caluroso.|Viajes
+3|s|别难过，会好的。|bié nán guò huì hǎo de|No estés triste, todo irá bien.|Citas
+3|s|我上三年级。|wǒ shàng sān nián jí|Estoy en tercer curso.|Conversación
+3|s|她看起来很年轻。|tā kàn qǐ lái hěn nián qīng|Parece muy joven.|Citas
+3|s|树上有一只鸟。|shù shang yǒu yì zhī niǎo|Hay un pájaro en el árbol.|Conversación
+3|s|周末我们去爬山吧。|zhōu mò wǒ men qù pá shān ba|Vamos al monte el fin de semana.|Citas
+3|s|请给我一个盘子。|qǐng gěi wǒ yí ge pán zi|Dame un plato, por favor.|Comida
+3|s|这只猫太胖了。|zhè zhī māo tài pàng le|Este gato está demasiado gordo.|Conversación
+3|s|来两瓶啤酒。|lái liǎng píng pí jiǔ|Dos cervezas, por favor.|Comida
+3|s|他穿着新皮鞋。|tā chuān zhe xīn pí xié|Lleva zapatos de piel nuevos.|Conversación
+3|s|瓶子里有水。|píng zi lǐ yǒu shuǐ|Hay agua en la botella.|Comida
+3|s|其他人都同意了。|qí tā rén dōu tóng yì le|Los demás ya han aceptado.|Trabajo
+3|s|我骑自行车上班。|wǒ qí zì xíng chē shàng bān|Voy al trabajo en bici.|Trabajo
+3|s|快起来，要迟到了！|kuài qǐ lái yào chí dào le|¡Levántate, que llegamos tarde!|Conversación
+3|s|我听得很清楚。|wǒ tīng de hěn qīng chu|Lo oigo muy claro.|Conversación
+3|s|我秋天去旅游。|wǒ qiū tiān qù lǚ yóu|En otoño voy de viaje.|Viajes
+3|s|我认为你是对的。|wǒ rèn wéi nǐ shì duì de|Creo que tienes razón.|Trabajo
+3|s|他工作很认真。|tā gōng zuò hěn rèn zhēn|Trabaja con mucha seriedad.|Trabajo
+3|s|这个问题很容易。|zhè ge wèn tí hěn róng yì|Esta pregunta es muy fácil.|Conversación
+3|s|我每天晚上上网。|wǒ měi tiān wǎn shang shàng wǎng|Cada noche me conecto a internet.|Conversación
+3|s|外面有什么声音？|wài miàn yǒu shén me shēng yīn|¿Qué ruido hay fuera?|Conversación
+3|s|我想去看看世界。|wǒ xiǎng qù kàn kan shì jiè|Quiero ir a ver mundo.|Viajes
+3|s|这张床很舒服。|zhè zhāng chuáng hěn shū fu|Esta cama es muy cómoda.|Viajes
+3|s|叔叔送我一本书。|shū shu sòng wǒ yì běn shū|Mi tío me regaló un libro.|Conversación
+3|s|我的数学不好。|wǒ de shù xué bù hǎo|No se me dan bien las matemáticas.|Conversación
+3|s|我每天刷两次牙。|wǒ měi tiān shuā liǎng cì yá|Me cepillo los dientes dos veces al día.|Conversación
+3|s|我买了一双鞋。|wǒ mǎi le yì shuāng xié|Me he comprado un par de zapatos.|Comida
+3|s|司机，请在这儿停。|sī jī qǐng zài zhè r tíng|Conductor, pare aquí, por favor.|Viajes
+3|s|今天太阳很大。|jīn tiān tài yáng hěn dà|Hoy hace mucho sol.|Conversación
+3|s|我想提高我的中文水平。|wǒ xiǎng tí gāo wǒ de Zhōng wén shuǐ píng|Quiero mejorar mi nivel de chino.|Conversación
+3|s|我喜欢体育。|wǒ xǐ huan tǐ yù|Me gusta el deporte.|Conversación
+3|s|这个蛋糕太甜了。|zhè ge dàn gāo tài tián le|Esta tarta es demasiado dulce.|Comida
+3|s|我去图书馆看书。|wǒ qù tú shū guǎn kàn shū|Voy a la biblioteca a leer.|Conversación
+3|s|我的腿很疼。|wǒ de tuǐ hěn téng|Me duele mucho la pierna.|Conversación
+3|s|我完成了作业。|wǒ wán chéng le zuò yè|He terminado los deberes.|Conversación
+3|s|我要一碗米饭。|wǒ yào yì wǎn mǐ fàn|Quiero un cuenco de arroz.|Comida
+3|s|这个要一万块。|zhè ge yào yí wàn kuài|Esto cuesta diez mil yuanes.|Comida
+3|s|这位是我们的经理。|zhè wèi shì wǒ men de jīng lǐ|Este señor es nuestro gerente.|Trabajo
+3|s|我对中国文化很感兴趣。|wǒ duì Zhōng guó wén huà hěn gǎn xìng qù|Me interesa mucho la cultura china.|Conversación
+3|s|超市在西边。|chāo shì zài xī bian|El supermercado está al oeste.|Viajes
+3|s|洗手间在哪儿？|xǐ shǒu jiān zài nǎ r|¿Dónde está el aseo?|Viajes
+3|s|我每天晚上洗澡。|wǒ měi tiān wǎn shang xǐ zǎo|Me ducho cada noche.|Conversación
+3|s|夏天我去游泳。|xià tiān wǒ qù yóu yǒng|En verano voy a nadar.|Conversación
+3|s|我买了香蕉和苹果。|wǒ mǎi le xiāng jiāo hé píng guǒ|He comprado plátanos y manzanas.|Comida
+3|s|一直向前走。|yì zhí xiàng qián zǒu|Sigue todo recto.|Viajes
+3|s|她像她妈妈。|tā xiàng tā mā ma|Se parece a su madre.|Conversación
+3|s|校长来了。|xiào zhǎng lái le|Ha llegado el director.|Conversación
+3|s|我每天看新闻。|wǒ měi tiān kàn xīn wén|Veo las noticias cada día.|Conversación
+3|s|这些水果很新鲜。|zhè xiē shuǐ guǒ hěn xīn xiān|Esta fruta está muy fresca.|Comida
+3|s|熊猫真可爱。|xióng māo zhēn kě ài|Los pandas son adorables.|Conversación
+3|s|公司的要求很高。|gōng sī de yāo qiú hěn gāo|La empresa exige mucho.|Trabajo
+3|s|我爷爷喜欢喝茶。|wǒ yé ye xǐ huan hē chá|A mi abuelo le gusta el té.|Conversación
+3|s|我们一样高。|wǒ men yí yàng gāo|Medimos lo mismo.|Conversación
+3|s|我一般七点起床。|wǒ yì bān qī diǎn qǐ chuáng|Normalmente me levanto a las siete.|Conversación
+3|s|你应该多休息。|nǐ yīng gāi duō xiū xi|Deberías descansar más.|Conversación
+3|s|天气影响我的心情。|tiān qì yǐng xiǎng wǒ de xīn qíng|El tiempo influye en mi ánimo.|Conversación
+3|s|我们玩个游戏吧。|wǒ men wán ge yóu xì ba|Juguemos a algo.|Citas
+3|s|这家饭店很有名。|zhè jiā fàn diàn hěn yǒu míng|Este restaurante es muy famoso.|Comida
+3|s|我在路上遇到了他。|wǒ zài lù shang yù dào le tā|Me lo encontré por la calle.|Conversación
+3|s|一共五十元。|yí gòng wǔ shí yuán|En total son cincuenta yuanes.|Comida
+3|s|今晚月亮很圆。|jīn wǎn yuè liang hěn yuán|Esta noche la luna está muy redonda.|Citas
+3|s|请给我一张纸。|qǐng gěi wǒ yì zhāng zhǐ|Dame una hoja de papel, por favor.|Trabajo
+3|s|孩子长高了。|hái zi zhǎng gāo le|El niño ha crecido.|Conversación
+3|s|别着急，慢慢来。|bié zháo jí màn màn lái|No te agobies, con calma.|Conversación
+3|s|这张照片很漂亮。|zhè zhāng zhào piàn hěn piào liang|Esta foto es muy bonita.|Citas
+3|s|我带了照相机。|wǒ dài le zhào xiàng jī|He traído la cámara.|Viajes
+3|s|我有一只猫。|wǒ yǒu yì zhī māo|Tengo un gato.|Conversación
+3|s|我只有十块钱。|wǒ zhǐ yǒu shí kuài qián|Solo tengo diez yuanes.|Comida
+3|s|只有努力才能成功。|zhǐ yǒu nǔ lì cái néng chéng gōng|Solo con esfuerzo se puede triunfar.|Conversación
+3|s|我学中文两年了。|wǒ xué Zhōng wén liǎng nián le|Llevo dos años estudiando chino.|Conversación
+3|s|银行在中间。|yín háng zài zhōng jiān|El banco está en medio.|Viajes
+3|s|你喜欢哪种茶？|nǐ xǐ huan nǎ zhǒng chá|¿Qué tipo de té te gusta?|Comida
+3|s|这个问题很重要。|zhè ge wèn tí hěn zhòng yào|Este asunto es muy importante.|Trabajo
+3|s|这是主要的问题。|zhè shì zhǔ yào de wèn tí|Este es el problema principal.|Trabajo
+3|s|他的嘴很大。|tā de zuǐ hěn dà|Tiene la boca grande.|Conversación
+3|s|我有很多作业。|wǒ yǒu hěn duō zuò yè|Tengo muchos deberes.|Conversación
+4|s|这是真的爱情。|zhè shì zhēn de ài qíng|Esto es amor de verdad.|Citas
+4|s|我来安排时间。|wǒ lái ān pái shí jiān|Yo organizo el horario.|Trabajo
+4|s|请注意安全。|qǐng zhù yì ān quán|Ten cuidado, por favor.|Viajes
+4|s|我报名参加比赛了。|wǒ bào míng cān jiā bǐ sài le|Me he apuntado a la competición.|Conversación
+4|s|我本来想去的。|wǒ běn lái xiǎng qù de|En principio quería ir.|Citas
+4|s|比如说，我喜欢茶。|bǐ rú shuō wǒ xǐ huan chá|Por ejemplo, a mí me gusta el té.|Conversación
+4|s|我明年毕业。|wǒ míng nián bì yè|Me gradúo el año que viene.|Conversación
+4|s|很好，不过有点儿贵。|hěn hǎo bú guò yǒu diǎn r guì|Está muy bien, pero es un poco caro.|Comida
+4|s|祝你成功！|zhù nǐ chéng gōng|¡Que tengas éxito!|Trabajo
+4|s|妈妈在厨房做饭。|mā ma zài chú fáng zuò fàn|Mamá está cocinando en la cocina.|Comida
+4|s|我从来没去过中国。|wǒ cóng lái méi qù guo Zhōng guó|Nunca he estado en China.|Viajes
+4|s|他大概八点到。|tā dà gài bā diǎn dào|Llegará sobre las ocho.|Citas
+4|s|导游说得很清楚。|dǎo yóu shuō de hěn qīng chu|El guía lo explica muy claro.|Viajes
+4|s|到处都是人。|dào chù dōu shì rén|Hay gente por todas partes.|Viajes
+4|s|我向你道歉。|wǒ xiàng nǐ dào qiàn|Te pido disculpas.|Conversación
+4|s|今天堵车，我迟到了。|jīn tiān dǔ chē wǒ chí dào le|Hoy había atasco y llegué tarde.|Trabajo
+4|s|周末我想放松一下。|zhōu mò wǒ xiǎng fàng sōng yí xià|El fin de semana quiero relajarme.|Citas
+4|s|这里的菜很丰富。|zhè lǐ de cài hěn fēng fù|Aquí la comida es muy variada.|Comida
+4|s|我很感动。|wǒ hěn gǎn dòng|Estoy muy conmovido.|Citas
+4|s|我感觉有点儿累。|wǒ gǎn jué yǒu diǎn r lèi|Me siento un poco cansado.|Conversación
+4|s|我们的感情很好。|wǒ men de gǎn qíng hěn hǎo|Nos queremos mucho.|Citas
+4|s|周末我们去购物吧。|zhōu mò wǒ men qù gòu wù ba|Vamos de compras el fin de semana.|Citas
+4|s|顾客是上帝。|gù kè shì shàng dì|El cliente es lo primero.|Trabajo
+4|s|她很害羞。|tā hěn hài xiū|Ella es muy tímida.|Citas
+4|s|这件衣服很合适。|zhè jiàn yī fu hěn hé shì|Esta ropa te queda bien.|Comida
+4|s|我不后悔。|wǒ bú hòu huǐ|No me arrepiento.|Conversación
+4|s|这是美好的回忆。|zhè shì měi hǎo de huí yì|Es un recuerdo precioso.|Citas
+4|s|考试前我很紧张。|kǎo shì qián wǒ hěn jǐn zhāng|Antes del examen estoy muy nervioso.|Conversación
+4|s|让我考虑一下。|ràng wǒ kǎo lǜ yí xià|Déjame pensarlo.|Trabajo
+4|s|这里很浪漫。|zhè lǐ hěn làng màn|Este sitio es muy romántico.|Citas
+4|s|我喜欢一个人旅行。|wǒ xǐ huan yí ge rén lǚ xíng|Me gusta viajar solo.|Viajes
+4|s|这个是免费的。|zhè ge shì miǎn fèi de|Esto es gratis.|Comida
+4|s|请耐心等一下。|qǐng nài xīn děng yí xià|Espera con paciencia, por favor.|Conversación
+4|s|请在这儿排队。|qǐng zài zhè r pái duì|Haga cola aquí, por favor.|Viajes
+4|s|我陪你去医院。|wǒ péi nǐ qù yī yuàn|Te acompaño al hospital.|Citas
+4|s|这个工作很轻松。|zhè ge gōng zuò hěn qīng sōng|Este trabajo es muy llevadero.|Trabajo
+4|s|我已经适应这里了。|wǒ yǐ jīng shì yìng zhè lǐ le|Ya me he adaptado a este sitio.|Conversación
+4|s|这个地方很吸引人。|zhè ge dì fang hěn xī yǐn rén|Este lugar atrae mucho.|Viajes
+4|s|我很羡慕你。|wǒ hěn xiàn mù nǐ|Te envidio mucho.|Conversación
+4|s|今天我心情很好。|jīn tiān wǒ xīn qíng hěn hǎo|Hoy estoy de muy buen humor.|Conversación
+4|s|今晚我有约会。|jīn wǎn wǒ yǒu yuē huì|Esta noche tengo una cita.|Citas
+4|s|他每次都很准时。|tā měi cì dōu hěn zhǔn shí|Él siempre es puntual.|Trabajo
+3|s|我每天经过那个公园。|wǒ měi tiān jīng guò nà ge gōng yuán|Cada día paso por ese parque.|Viajes
+3|s|我起床后刷牙。|wǒ qǐ chuáng hòu shuā yá|Me cepillo los dientes al levantarme.|Conversación
+2|s|门开着。|mén kāi zhe|La puerta está abierta.|Conversación`;
 const ITEMS = DATA.trim().split('\n').map((l,i)=>{const p=l.split('|');return {id:i+1,niv:+p[0],tipo:p[1],zh:p[2],py:p[3].split(' '),es:p[4],tema:p[5]||''};});
 const POS_LISTA = {
  Verbo: '谢谢 请 是 有 看 听 说 读 写 看见 叫 来 回 去 吃 喝 睡觉 打电话 做 买 开 坐 住 学习 工作 下雨 爱 喜欢 想 认识 会 能 说话 卖 问 走 进 出 跑步 到 穿 洗 给 找 懂 笑 告诉 准备 开始 介绍 帮助 玩 送 等 让 起床 唱歌 跳舞 旅游 上班 生病 休息 运动 游泳 踢足球 打篮球 完 觉得 知道 希望 可以 要 可能 搬 帮忙 比较 变化 参加 迟到 打扫 打算 带 担心 锻炼 发 发烧 发现 放 放心 复习 感兴趣 感冒 刮风 关 关心 过去 过 害怕 花 画 欢迎 还 换 回答 记得 检查 见面 讲 教 接 结婚 结束 解决 借 经过 决定 哭 离开 聊天 练习 了解 留学 明白 拿 努力 爬山 骑 起来 起飞 请假 认为 上网 生气 试 刷牙 疼 提高 同意 完成 忘记 相信 像 小心 需要 选择 要求 影响 用 遇到 愿意 站 长 着急 照顾 注意 应该 安排 报名 毕业 成功 出差 出发 打扰 打折 道歉 放松 感动 感觉 坚持 建议 开玩笑 考虑 旅行 麻烦 迷路 排队 陪 散步 适应 提醒 推迟 吸引 羡慕 邀请 加班 堵车 购物 租 后悔 回忆',
@@ -1055,7 +1408,7 @@ function seed(){
 }
 function load(){ try{const s=localStorage.getItem(KEY); if(s) st=JSON.parse(s);}catch(e){} if(!st||!st.items) seed(); }
 function save(){ try{localStorage.setItem(KEY,JSON.stringify(st));}catch(e){} }
-const VERSION_APP = '1.2';
+const VERSION_APP = '1.3';
 function exportarDatos(){
   const payload = {app:'curso-chino', version:VERSION_APP, fecha:new Date().toISOString(), estado:st, tema:(()=>{try{return localStorage.getItem('hsk_tema')}catch(e){return null}})(), voz:vozElegida};
   return JSON.stringify(payload);
@@ -1125,7 +1478,8 @@ function elegir(){
 function ejemplo(it){
   if(it.tipo!=='w') return null;
   const base=it.zh.replace(PUNT,'');
-  const c=ITEMS.filter(x=>x.tipo!=='w'&&x.niv<=it.niv&&x.zh.includes(base));
+  let c=ITEMS.filter(x=>x.tipo!=='w'&&x.niv<=it.niv&&x.zh.includes(base));
+  if(!c.length) c=ITEMS.filter(x=>x.tipo!=='w'&&x.zh.includes(base));
   return c.length?rnd(c):null;
 }
 function siguiente(){
